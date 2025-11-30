@@ -3,7 +3,10 @@
 {
   # Hardware configuration will be imported automatically by nixos-anywhere
   # during installation, so we don't specify it here for initial deploy
-  
+  imports = [
+    ../common/wifi.nix
+  ];
+
   networking.hostName = "lumen-01";
   
   # Timezone and locale
