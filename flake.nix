@@ -22,7 +22,7 @@
 
   outputs = { self, nixpkgs, home-manager, disko, sops-nix, ... }@inputs: {
     nixosConfigurations = {
-      server-01 = nixpkgs.lib.nixosSystem {
+      lumen-01 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
