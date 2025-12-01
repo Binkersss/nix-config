@@ -11,23 +11,23 @@
     { self, nixpkgs, home-manager, ... }:
     {
       nixosConfigurations.lumen-01 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/lumen-01/configuration.nix
-	    ./hosts/lumen-01/hardware-configuration.nix
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/lumen-01/configuration.nix
+	  ./hosts/lumen-01/hardware-configuration.nix
 
-	    ./hosts/common/bases/server-base.nix
-	    ./hosts/common/users/binker.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.binker = ./home.nix;
+	  ./hosts/common/bases/server-base.nix
+          ./hosts/common/users/binker.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.binker = ./home.nix;
 
-              # Optionally, use home-manager.extraSpecialArgs to pass
-              # arguments to home.nix
-            }
-          ];
+	    # Optionally, use home-manager.extraSpecialArgs to pass
+            # arguments to home.nix
+          }
+        ];
       };
     };
 }
