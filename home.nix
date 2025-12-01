@@ -98,8 +98,12 @@
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
-    userName = "Nathaniel Chappelle";
-    userEmail = "nathaniel@chappelle.dev";
+    settings = {
+      user = {
+	name = "Nathaniel Chappelle";
+	email = "nathaniel@chappelle.dev";
+      };
+    };
   };
 
   # starship - an customizable prompt for any shell

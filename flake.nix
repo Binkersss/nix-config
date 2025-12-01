@@ -13,8 +13,8 @@
       nixosConfigurations.lumen-01 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            ./configuration.nix
-	    ./hardware-configuration.nix
+            ./hosts/lumen-01/configuration.nix
+	    ./hosts/lumen-01/hardware-configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

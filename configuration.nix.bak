@@ -17,17 +17,17 @@
   boot.initrd.luks.devices."luks-3814ed9e-6071-412b-93d0-5d142531a483".device = "/dev/disk/by-uuid/3814ed9e-6071-412b-93d0-5d142531a483";
 
   # initrd ssh for remote encryption passphrase
-  boot.initrd.network = {
-    enable = true;
-    ssh = {
-      enable = true;
-      port = 2222;
-      authorizedKeys = [
-	"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGsjGdnuCoMMckj1DZlNk64qOmH0lux9iSGCB1m37fHM binker@shard"
-      ];
-      hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
-    };
-  };
+  # boot.initrd.network = {
+  #   enable = true;
+  #   ssh = {
+  #     enable = true;
+  #     port = 2222;
+  #     authorizedKeys = [
+  #       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGsjGdnuCoMMckj1DZlNk64qOmH0lux9iSGCB1m37fHM binker@shard"
+  #     ];
+  #     hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
+  #   };
+  # };
 
   networking.hostName = "lumen-01"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -71,7 +71,6 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGsjGdnuCoMMckj1DZlNk64qOmH0lux9iSGCB1m37fHM binker@shard"
     ];
-    packages = with pkgs; [];
     shell = pkgs.zsh;
   };
 
