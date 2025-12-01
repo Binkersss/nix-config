@@ -15,6 +15,9 @@
           modules = [
             ./hosts/lumen-01/configuration.nix
 	    ./hosts/lumen-01/hardware-configuration.nix
+
+	    ./hosts/common/bases/server-base.nix
+	    ./hosts/common/users/binker.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
