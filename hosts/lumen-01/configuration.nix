@@ -93,5 +93,7 @@
       };
     };
   };
+  
+  homelab.services.jellyfin.enable = true;
 
 }
