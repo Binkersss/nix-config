@@ -95,5 +95,6 @@
   };
   
   homelab.services.jellyfin.enable = true;
+  homelab.services.deluge.enable = true;
 
 }
