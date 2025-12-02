@@ -6,7 +6,6 @@
     go
     rustc
     cargo
-    gcc
     clang
     
     # JS FUCKING SUCKK
