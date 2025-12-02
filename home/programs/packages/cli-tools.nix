@@ -4,7 +4,8 @@
   home.packages = with pkgs; [
     fastfetch
     nnn
-    
+    thefuck
+
     # archives
     zip
     xz
