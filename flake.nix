@@ -18,6 +18,9 @@
 
           ./hosts/common/bases/server-base.nix
           ./hosts/common/users/binker.nix
+
+	  ./modules/homelab
+
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
