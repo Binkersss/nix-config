@@ -1,0 +1,9 @@
+{ config, pkgs, ... }:
+
+{
+  imports = [
+    ./cli-tools.nix
+    ./networking.nix
+    ./monitoring.nix
+  ];
+}
