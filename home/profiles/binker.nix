@@ -27,6 +27,7 @@
       shellAliases = {
         ll = "ls -l";
         ff = "fastfetch";
+	f = "pay-respects";
       };
       history.size = 10000;
     oh-my-zsh = {
