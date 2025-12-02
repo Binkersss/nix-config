@@ -29,7 +29,7 @@
 
   fileSystems."/mnt/usbnas" = {
     device = "dev/disk/by-uuid/CCC6-D555";
-    fstype = "exfat";
+    fsType = "exfat";
     options = [ "defaults" "nofail" "uid=1000" "gid=100" "umask=0022"];
   };
 
