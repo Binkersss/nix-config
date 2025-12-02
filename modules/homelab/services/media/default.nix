@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./media
-    #./downloads
+    ./jellyfin.nix
   ];
 }
