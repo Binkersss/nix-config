@@ -35,7 +35,7 @@
         "git"
         "zsh-autosuggestions"
         "zsh-syntax-highlighting"
-        "thefuck"
+        "pay-respects"
       ];
       theme = "robbyrussell";
     };

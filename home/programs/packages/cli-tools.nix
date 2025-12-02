@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     fastfetch
     nnn
-    thefuck
+    pay-respects
 
     # archives
     zip
