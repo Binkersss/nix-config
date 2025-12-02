@@ -12,5 +12,4 @@
 
   users.users.root.hashedPassword = "!";
 
-  programs.zsh.enable = true;
 }
