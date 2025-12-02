@@ -5,5 +5,6 @@
     ./cli-tools.nix
     ./networking.nix
     ./monitoring.nix
+    ./development.nix
   ];
 }
