@@ -40,4 +40,8 @@
     htop
     tmux
   ];
+
+  environment.sessionVariables = {
+    TERM = "xterm-256color";
+  };
 }
