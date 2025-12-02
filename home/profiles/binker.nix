@@ -34,9 +34,6 @@
       enable = true;
       plugins = [
         "git"
-        "zsh-autosuggestions"
-        "zsh-syntax-highlighting"
-        "pay-respects"
       ];
       theme = "robbyrussell";
     };

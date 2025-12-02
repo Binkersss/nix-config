@@ -12,6 +12,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.supportedFilesystems = [ "exfat" ];
 
   fileSystems."/" =
     { device = "/dev/mapper/luks-daeeb3f7-0a3d-4d24-b864-31819d24bdc8";
@@ -25,6 +26,12 @@
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
+
+  fileSystems."/mnt/usbnas" = {
+    device = "dev/disk/by-uuid/CCC6-D555";
+    fstype = "exfat";
+    options = [ "defaults" "nofail" "uid=1000" "gid=100" "umask=0022"];
+  };
 
   swapDevices =
     [ { device = "/dev/mapper/luks-3814ed9e-6071-412b-93d0-5d142531a483"; }

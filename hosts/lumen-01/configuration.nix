@@ -68,4 +68,30 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
 
+  services.samba = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      global = {
+        "workgroup" = "WORKGROUP";
+        "server string" = "NixOS Media Server";
+        "netbios name" = "nixos";
+        "security" = "user";
+        "hosts allow" = "192.168.1. 127.0.0.1 localhost";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+      };
+      
+      "media" = {
+        "path" = "/mnt/usbnas";
+        "browseable" = "yes";
+        "read only" = "no";
+        "guest ok" = "yes";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "your-username";
+      };
+    };
+  };
+
 }
