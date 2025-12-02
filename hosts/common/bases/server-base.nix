@@ -41,6 +41,8 @@
     tmux
   ];
 
+  programs.ssh.startAgent = true;
+
   environment.sessionVariables = {
     TERM = "xterm-256color";
   };

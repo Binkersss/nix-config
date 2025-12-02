@@ -19,7 +19,6 @@
   # home.file.".xxx".text = ''
   #     xxx
   # '';
-
   # set cursor size and dpi for 4k monitor
   # xresources.properties = {
   #   "Xcursor.size" = 16;
