@@ -129,7 +129,7 @@
     vpn.protonvpn = {
       enable = true;
       configFile = "/root/protonvpn.conf";
-      vpnAddress = "10.2.0.2/32";"10.2.0.2/32";
+      vpnAddress = "10.2.0.2/32";
     };
 
     jellyfin = { 
