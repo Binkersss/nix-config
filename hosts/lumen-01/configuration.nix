@@ -95,10 +95,16 @@
   };
   
   
-  users.groups.nas = { };
+  users.groups.nas = { 
+    gid = 1000;
+  };
   users.users.binker.extraGroups = [ "nas" ];
   users.users.bazarr.extraGroups = [ "nas" ];
   users.users.radarr.extraGroups = [ "nas" ];
+  users.users.sonarr.extraGroups = [ "nas" ];
+  users.users.jellyfin.extraGroups = [ "nas" ];
+  users.users.deluge.extraGroups = [ "nas" ];
+  users.users.prowlarr.extraGroups = [ "nas" ];
 
   homelab.services = {
     radarr = {
