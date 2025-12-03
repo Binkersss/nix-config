@@ -70,16 +70,15 @@ in {
         ${pkgs.gnused}/bin/sed '/^DNS/d' ${cfg.configFile} > /tmp/protonvpn-nodns.conf
         chmod 600 /tmp/protonvpn-nodns.conf
         
-        # Set WG_QUICK_USERSPACE_IMPLEMENTATION to skip resolvconf
-        export WG_QUICK_USERSPACE_IMPLEMENTATION=wireguard-go
-        
         # Start WireGuard in namespace
         ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.wireguard-tools}/bin/wg-quick up /tmp/protonvpn-nodns.conf
         
         # Manually set DNS in the namespace after WireGuard is up
-        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} mkdir -p /etc
-        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} sh -c 'echo "nameserver 1.1.1.1" > /etc/resolv.conf'
-        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} sh -c 'echo "nameserver 8.8.8.8" >> /etc/resolv.conf'
+        mkdir -p /etc/netns/${cfg.namespace}
+        cat > /etc/netns/${cfg.namespace}/resolv.conf << 'EOF'
+        nameserver 1.1.1.1
+        nameserver 8.8.8.8
+        EOF
       '';
       
       preStop = ''
@@ -87,6 +86,7 @@ in {
         rm -f /tmp/protonvpn-nodns.conf 2>/dev/null || true
         ${pkgs.iproute2}/bin/ip link del veth-vpn 2>/dev/null || true
         ${pkgs.iproute2}/bin/ip netns del ${cfg.namespace} 2>/dev/null || true
+        rm -rf /etc/netns/${cfg.namespace} 2>/dev/null || true
       '';
     };
   };
