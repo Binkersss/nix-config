@@ -94,24 +94,49 @@
     };
   };
   
-  homelab.services.jellyfin.enable = true;
-  # Enable protonvpn
-  homelab.services.vpn.protonvpn = {
-    enable = true;
-    configFile = "/root/protonvpn.conf";
-  };
   
-  # Enable Deluge with VPN
-  homelab.services.deluge = {
-    enable = true;
-    downloadLocation = "/mnt/usbnas/downloads";
-    useVPN = true;  # Route through VPN
-  };
+  users.groups.media = { };
+
   homelab.services = {
-    jellyseerr.enable = true;
-    radarr.enable = true;
-    sonarr.enable = true;
-    bazarr.enable = true;
-    prowlarr.enable = true;
+    radarr = {
+      enable = true;
+      user = "radarr";
+      group = "media";
+    };
+
+    vpn.protonvpn = {
+      enable = true;
+      configFile = "/root/protonvpn.conf";
+    };
+
+    jellyfin = { 
+      enable = true;
+      user = "jellyfin";
+      group = "media";
+    };
+
+    sonarr = {
+     enable = true;
+     user = "sonarr";
+     group = "media";
+    };
+
+    prowlarr = {
+     enable = true;
+     user = "prowlarr";
+     group = "media";
+    };
+
+    bazarr = {
+      enable = true;
+      user = "bazarr";
+      group = "media";
+    };
+    
+    deluge = {
+      enable = true;
+      downloadLocation = "/mnt/usbnas/downloads";
+      useVPN = true;  # Route through VPN
+    };
   };
 }
