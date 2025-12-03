@@ -127,12 +127,6 @@
      group = "media";
     };
 
-    bazarr = {
-      enable = true;
-      user = "bazarr";
-      group = "media";
-    };
-    
     deluge = {
       enable = true;
       downloadLocation = "/mnt/usbnas/downloads";

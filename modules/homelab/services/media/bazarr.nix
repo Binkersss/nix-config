@@ -12,8 +12,6 @@ in {
   config = mkIf cfg.enable {
     services.bazarr = {
       enable = true;
-      group = "media";
-      user = "bazaar";
       openFirewall = true;
     };
   };
