@@ -95,6 +95,9 @@
   };
   
   homelab.services.jellyfin.enable = true;
-  homelab.services.deluge.enable = true;
+  homelab.services.deluge = {
+    enable = true;
+    downloadLocation = "/mnt/usbnas/downloads";
+  };
 
 }
