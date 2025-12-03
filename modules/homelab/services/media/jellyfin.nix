@@ -18,7 +18,7 @@ in {
       type = types.listOf types.path;
       default = [];
       description = "Directories containing media files";
-      example = [ "/mnt/usbnas/movies" "/mnt/usbnas/tv" ];
+      example = [ "/mnt/usbnas/media/movies" "/mnt/usbnas/media/tv" ];
     };
   };
 
