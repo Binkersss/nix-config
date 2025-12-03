@@ -107,4 +107,11 @@
     downloadLocation = "/mnt/usbnas/downloads";
     useVPN = true;  # Route through VPN
   };
+  homelab.services = {
+    jellyseerr.enable = true;
+    radarr.enable = true;
+    sonarr.enable = true;
+    bazarr.enable = true;
+    prowlarr.enable = true;
+  };
 }
