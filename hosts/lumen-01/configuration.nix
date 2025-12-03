@@ -118,6 +118,10 @@
   ];
 
   homelab.services = {
+    homepage = {
+      enable = true;
+    };
+
     radarr = {
       enable = true;
     };
