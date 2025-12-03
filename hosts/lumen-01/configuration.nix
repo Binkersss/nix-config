@@ -129,29 +129,30 @@
       useVPN = true;  # Route through VPN
     };
   };
-	users.users.bazarr = {
-  isSystemUser = true;
-  extraGroups = [ "media" ];
-};
 
-users.users.deluge = {
-  isSystemUser = true;
-  extraGroups = [ "media" ];
-};
+  users.users.bazarr = {
+    isSystemUser = true;
+    extraGroups = [ "media" ];
+  };
 
-users.users.radarr = {
-  isSystemUser = true;
-  extraGroups = [ "media" ];
-};
+  users.users.deluge = {
+    isSystemUser = true;
+    extraGroups = [ "media" ];
+  };
 
-users.users.sonarr = {
-  isSystemUser = true;
-  extraGroups = [ "media" ];
-};
+  users.users.radarr = {
+    isSystemUser = true;
+    extraGroups = [ "media" ];
+  };
 
-users.users.prowlarr = {
-  isSystemUser = true;
-  extraGroups = [ "media" ];
-};
+  users.users.sonarr = {
+    isSystemUser = true;
+    extraGroups = [ "media" ];
+  };
 
-  }
+  users.users.prowlarr = {
+    isSystemUser = true;
+    extraGroups = [ "media" ];
+  };
+
+}
