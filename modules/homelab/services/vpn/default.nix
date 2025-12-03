@@ -2,8 +2,6 @@
 
 {
   imports = [
-    ./media
-    ./downloads
-    ./vpn
+    ./protonvpn.nix
   ];
 }

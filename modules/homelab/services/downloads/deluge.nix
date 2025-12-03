@@ -4,6 +4,7 @@ with lib;
 
 let
   cfg = config.homelab.services.deluge;
+  vpnCfg = config.homelab.servies.vpn.protonvpn;
 in {
   options.homelab.services.deluge = {
     enable = mkEnableOption "Deluge torrent client";
@@ -32,6 +33,12 @@ in {
       description = "Port for Deluge web interface";
     };
 
+    useVPN = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Route Deluge through VPN namespace";
+    };
+
   };
 
   config = mkIf cfg.enable {
@@ -48,5 +55,18 @@ in {
     systemd.tmpfiles.rules = [
       "d ${cfg.downloadLocation} 0775 deluge deluge -"
     ];
+
+    # Run Deluge daemon in VPN namespace
+    systemd.services.deluged = mkIf cfg.useVPN {
+      bindsTo = [ "protonvpn-namespace.service" ];
+      after = [ "protonvpn-namespace.service" ];
+      serviceConfig = {
+        NetworkNamespacePath = "/var/run/netns/${vpnCfg.namespace}";
+      };
+    };
+
+    systemd.services.delugeweb = mkIf (cfg.web.enable && !cfg.useVPN) {
+      # Web UI runs on host network, connects to daemon in namespace
+    };
   };
 }
