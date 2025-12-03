@@ -32,6 +32,10 @@
     fsType = "ext4";
     options = [ "defaults" "rw" ]; 
   };
+  # create the directory if it doesn't exist
+  systemd.tmpfiles.rules = [
+    "d /mnt/usbnas 0755 root root -"
+  ];
 
   swapDevices =
     [ { device = "/dev/mapper/luks-3814ed9e-6071-412b-93d0-5d142531a483"; }
