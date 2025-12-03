@@ -133,10 +133,6 @@
     group = "media";
   };
 
-  users.users.deluge = {
-    group = "media";
-  };
-
   users.users.radarr = {
     group = "media";
   };
