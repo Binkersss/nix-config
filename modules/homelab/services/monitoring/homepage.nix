@@ -8,7 +8,7 @@ let
 in {
   options.homelab.services.homepage = {
     enable = mkEnableOption "Homepage dashboard";
-    allowedHosts = 10.0.0.75; 
+    allowedHosts = "10.0.0.75"; 
     port = mkOption {
       type = types.port;
       default = 3000;
