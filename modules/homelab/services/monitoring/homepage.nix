@@ -27,6 +27,9 @@ in {
       settings = {
         title = "Homelab Dashboard";
         
+        # Allow access from any host
+        headerStyle = "boxed";
+        
         layout = [
           {
             Media = {
@@ -42,6 +45,12 @@ in {
           }
         ];
       };
+
+      # Add environment variable to disable host checking
+      environmentFile = pkgs.writeText "homepage-env" ''
+        HOMEPAGE_VAR_TITLE=Homelab Dashboard
+        LOG_TARGETS=stdout
+      '';
       
       services = [
         {
@@ -133,6 +142,11 @@ in {
           ];
         }
       ];
+    };
+
+    # Override the systemd service to bind to all interfaces
+    systemd.services.homepage-dashboard.environment = {
+      HOSTNAME = "0.0.0.0";
     };
   };
 }
