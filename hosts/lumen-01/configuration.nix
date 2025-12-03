@@ -95,9 +95,16 @@
   };
   
   homelab.services.jellyfin.enable = true;
+  # Enable protonvpn
+  homelab.services.vpn.protonvpn = {
+    enable = true;
+    configFile = "/root/protonvpn.conf";
+  };
+  
+  # Enable Deluge with VPN
   homelab.services.deluge = {
     enable = true;
     downloadLocation = "/mnt/usbnas/downloads";
+    useVPN = true;  # Route through VPN
   };
-
 }
