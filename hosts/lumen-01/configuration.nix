@@ -89,7 +89,7 @@
         "guest ok" = "yes";
         "create mask" = "0644";
         "directory mask" = "0755";
-        "force user" = "your-username";
+        "force user" = "binker";
       };
     };
   };
