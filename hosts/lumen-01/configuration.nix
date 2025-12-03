@@ -100,8 +100,6 @@
   homelab.services = {
     radarr = {
       enable = true;
-      user = "radarr";
-      group = "media";
     };
 
     vpn.protonvpn = {
@@ -111,26 +109,18 @@
 
     jellyfin = { 
       enable = true;
-      user = "jellyfin";
-      group = "media";
     };
 
     sonarr = {
      enable = true;
-     user = "sonarr";
-     group = "media";
     };
 
     prowlarr = {
      enable = true;
-     user = "prowlarr";
-     group = "media";
     };
 
     bazarr = {
       enable = true;
-      user = "bazarr";
-      group = "media";
     };
     
     deluge = {
@@ -139,4 +129,11 @@
       useVPN = true;  # Route through VPN
     };
   };
+
+  users.user.radarr.extraGroups = "media";
+  users.user.jellyfin.extraGroups = "media";
+  users.user.sonarr.extraGroups = "media";
+  users.user.prowlarr.extraGroups = "media";
+  users.user.bazarr.extraGroups = "media";
+  users.user.deluge.extraGroups = "media";
 }
