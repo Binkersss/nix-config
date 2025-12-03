@@ -56,22 +56,15 @@ in {
       "d ${cfg.downloadLocation} 0775 deluge deluge -"
     ];
 
-    # Run Deluge daemon in VPN namespace
+    # binding deluged to network namespace
     systemd.services.deluged = mkIf cfg.useVPN {
       bindsTo = [ "netns@${vpnCfg.namespace}.service" ];
       requires = [ "network-online.target" "protonvpn-wg.service" ];
       after = [ "protonvpn-wg.service" ];
-      serviceConfig = {
-        NetworkNamespacePath = "/var/run/netns/${vpnCfg.namespace}";
-      };
+      serviceConfig.NetworkNamespacePath = [ "/var/run/netns/${vpnCfg.namespace}" ];
     };
 
-    # Web UI runs on host network, connects to daemon via proxy
-    systemd.services.delugeweb = mkIf (cfg.web.enable && !cfg.useVPN) {
-      # Web UI runs normally when VPN is disabled
-    };
-
-    # Proxy socket to allow web UI to reach daemon in namespace
+    # allowing delugeweb to access deluged in network namespace
     systemd.sockets."proxy-to-deluged" = mkIf cfg.useVPN {
       enable = true;
       description = "Socket for Proxy to Deluge Daemon";
@@ -79,7 +72,7 @@ in {
       wantedBy = [ "sockets.target" ];
     };
 
-    # Proxy service forwards connections into the VPN namespace
+    # creating proxy service on socket
     systemd.services."proxy-to-deluged" = mkIf cfg.useVPN {
       enable = true;
       description = "Proxy to Deluge Daemon in Network Namespace";
