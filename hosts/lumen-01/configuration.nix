@@ -129,7 +129,8 @@
       useVPN = true;  # Route through VPN
     };
   };
-
+	
+  users.extraGroups = { "media" };
   users.user.radarr.extraGroups = "media";
   users.user.jellyfin.extraGroups = "media";
   users.user.sonarr.extraGroups = "media";
