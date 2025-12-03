@@ -28,7 +28,7 @@
     };
 
   fileSystems."/mnt/usbnas" = {
-    device = "dev/disk/by-uuid/aa917922-bd80-4690-bf12-18903f70c306";
+    device = "/dev/disk/by-uuid/aa917922-bd80-4690-bf12-18903f70c306";
     fsType = "ext4";
     options = [ "defaults" "rw" ]; 
   };
