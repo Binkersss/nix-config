@@ -4,7 +4,7 @@ with lib;
 
 let
   cfg = config.homelab.services.deluge;
-  vpnCfg = config.homelab.servies.vpn.protonvpn;
+  vpnCfg = config.homelab.services.vpn.protonvpn;
 in {
   options.homelab.services.deluge = {
     enable = mkEnableOption "Deluge torrent client";

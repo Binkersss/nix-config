@@ -22,6 +22,9 @@ in {
   };
 
   config = mkIf cfg.enable {
+    # Enable systemd-resolved for DNS in namespace
+    services.resolved.enable = true;
+    
     # Install WireGuard tools
     environment.systemPackages = with pkgs; [
       wireguard-tools
@@ -41,18 +44,39 @@ in {
       };
       
       script = ''
-        # Create namespace
-        ${pkgs.iproute2}/bin/ip netns add ${cfg.namespace} || true
+        # Create namespace if it doesn't exist
+        ${pkgs.iproute2}/bin/ip netns add ${cfg.namespace} 2>/dev/null || true
+        
+        # Create veth pair to connect namespace to host
+        ${pkgs.iproute2}/bin/ip link add veth-vpn type veth peer name veth-host 2>/dev/null || true
+        ${pkgs.iproute2}/bin/ip link set veth-host netns ${cfg.namespace}
+        
+        # Configure host side
+        ${pkgs.iproute2}/bin/ip addr add 10.200.200.1/24 dev veth-vpn
+        ${pkgs.iproute2}/bin/ip link set veth-vpn up
+        
+        # Configure namespace side
+        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.iproute2}/bin/ip addr add 10.200.200.2/24 dev veth-host
+        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.iproute2}/bin/ip link set veth-host up
+        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.iproute2}/bin/ip link set lo up
+        
+        # Enable IP forwarding
+        echo 1 > /proc/sys/net/ipv4/ip_forward
+        
+        # Set up NAT
+        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.200.200.0/24 -o $(${pkgs.iproute2}/bin/ip route | grep default | awk '{print $5}') -j MASQUERADE 2>/dev/null || true
+        
+        # Add default route in namespace to use veth
+        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.iproute2}/bin/ip route add default via 10.200.200.1
         
         # Start WireGuard in namespace
-        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} \
-          ${pkgs.wireguard-tools}/bin/wg-quick up ${cfg.configFile}
+        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.wireguard-tools}/bin/wg-quick up ${cfg.configFile}
       '';
       
       preStop = ''
-        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} \
-          ${pkgs.wireguard-tools}/bin/wg-quick down ${cfg.configFile} || true
-        ${pkgs.iproute2}/bin/ip netns del ${cfg.namespace} || true
+        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.wireguard-tools}/bin/wg-quick down ${cfg.configFile} 2>/dev/null || true
+        ${pkgs.iproute2}/bin/ip link del veth-vpn 2>/dev/null || true
+        ${pkgs.iproute2}/bin/ip netns del ${cfg.namespace} 2>/dev/null || true
       '';
     };
   };
