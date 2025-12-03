@@ -30,7 +30,7 @@
   fileSystems."/mnt/usbnas" = {
     device = "dev/disk/by-uuid/CCC6-D555";
     fsType = "exfat";
-    options = [ "defaults" "nofail" "uid=1000" "gid=100" "umask=0022"];
+    options = [ "defaults" "nofail" "uid=1000" "gid=100" "umask=0000"];
   };
 
   swapDevices =
