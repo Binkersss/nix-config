@@ -104,7 +104,18 @@
   users.users.sonarr.extraGroups = [ "nas" ];
   users.users.jellyfin.extraGroups = [ "nas" ];
   users.users.deluge.extraGroups = [ "nas" ];
-  users.users.prowlarr.extraGroups = [ "nas" ];
+
+  systemd.tmpfiles.rules = [
+    "d /mnt/usbnas 0775 root nas -"
+    "d /mnt/usbnas/downloads 0775 deluge nas -"
+    "d /mnt/usbnas/movies 0775 radarr nas -"
+    "d /mnt/usbnas/tv 0775 sonarr nas -"
+    "d /mnt/usbnas/tv 0775 bazarr nas -"
+    "d /mnt/usbnas/movies 0775 bazarr nas -"
+    "d /mnt/usbnas/tv 0775 jellyfin nas -"
+    "d /mnt/usbnas/movies 0775 jellyfin nas -"
+
+  ];
 
   homelab.services = {
     radarr = {
