@@ -36,6 +36,12 @@ in
   };
 
   config = mkIf cfg.enable {
+    # Create a stripped config file without Address line
+    environment.etc."protonvpn-wg.conf" = {
+      mode = "0600";
+      text = builtins.readFile cfg.configFile;
+    };
+
     # creating network namespace
     systemd.services."netns@" = {
       description = "%I network namespace";
@@ -59,6 +65,11 @@ in
         RemainAfterExit = true;
         ExecStart = with pkgs; writers.writeBash "protonvpn-wg-up" ''
           set -e
+          
+          # Create filtered config without Address line
+          ${gnugrep}/bin/grep -v '^Address' ${cfg.configFile} > /tmp/protonvpn-wg-filtered.conf
+          chmod 600 /tmp/protonvpn-wg-filtered.conf
+          
           ${iproute2}/bin/ip link add wg0 type wireguard
           ${iproute2}/bin/ip link set wg0 netns ${cfg.namespace}
           ${iproute2}/bin/ip -n ${cfg.namespace} address add ${cfg.vpnAddress} dev wg0
@@ -66,13 +77,16 @@ in
             ${iproute2}/bin/ip -n ${cfg.namespace} -6 address add ${cfg.vpnAddressIPv6} dev wg0
           ''}
           ${iproute2}/bin/ip netns exec ${cfg.namespace} \
-            ${wireguard-tools}/bin/wg setconf wg0 ${cfg.configFile}
+            ${wireguard-tools}/bin/wg setconf wg0 /tmp/protonvpn-wg-filtered.conf
           ${iproute2}/bin/ip -n ${cfg.namespace} link set wg0 up
           ${iproute2}/bin/ip -n ${cfg.namespace} link set lo up
           ${iproute2}/bin/ip -n ${cfg.namespace} route add default dev wg0
           ${optionalString (cfg.vpnAddressIPv6 != null) ''
             ${iproute2}/bin/ip -n ${cfg.namespace} -6 route add default dev wg0
           ''}
+          
+          # Clean up temp file
+          rm -f /tmp/protonvpn-wg-filtered.conf
         '';
         ExecStop = with pkgs; writers.writeBash "protonvpn-wg-down" ''
           ${iproute2}/bin/ip -n ${cfg.namespace} route del default dev wg0 || true
@@ -80,6 +94,7 @@ in
             ${iproute2}/bin/ip -n ${cfg.namespace} -6 route del default dev wg0 || true
           ''}
           ${iproute2}/bin/ip -n ${cfg.namespace} link del wg0 || true
+          rm -f /tmp/protonvpn-wg-filtered.conf
         '';
       };
     };
