@@ -129,19 +129,4 @@
       useVPN = true;  # Route through VPN
     };
   };
-  users.users.bazarr = {
-    group = "media";
-  };
-
-  users.users.radarr = {
-    group = "media";
-  };
-
-  users.users.sonarr = {
-    group = "media";
-  };
-
-  users.users.prowlarr = {
-    group = "media";
-  };
 }
