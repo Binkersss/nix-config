@@ -5,5 +5,6 @@
     ./media
     ./downloads
     ./vpn
+    ./monitoring
   ];
 }
