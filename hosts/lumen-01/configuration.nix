@@ -95,7 +95,10 @@
   };
   
   
-  users.groups.media = { };
+  users.groups.nas = { };
+  users.users.binker.extraGroups = [ "nas" ];
+  users.users.bazarr.extraGroups = [ "nas" ];
+  users.users.radarr.extraGroups = [ "nas" ];
 
   homelab.services = {
     radarr = {
