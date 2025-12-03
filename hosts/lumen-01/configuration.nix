@@ -130,7 +130,7 @@
     };
   };
 	
-  users.extraGroups = { "media" };
+  users.extraGroups = "media";
   users.user.radarr.extraGroups = "media";
   users.user.jellyfin.extraGroups = "media";
   users.user.sonarr.extraGroups = "media";
