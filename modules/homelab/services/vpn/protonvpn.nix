@@ -22,7 +22,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # Enable systemd-resolved for DNS in namespace
+    # Enable systemd-resolved for DNS
     services.resolved.enable = true;
     
     # Install WireGuard tools
@@ -34,7 +34,7 @@ in {
     # Create network namespace and start VPN in it
     systemd.services.protonvpn-namespace = {
       description = "ProtonVPN in network namespace";
-      after = [ "network-online.target" ];
+      after = [ "network-online.target" "systemd-resolved.service" ];
       wants = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       
@@ -60,6 +60,13 @@ in {
         ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.iproute2}/bin/ip link set veth-host up
         ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.iproute2}/bin/ip link set lo up
         
+        # Set up DNS in namespace BEFORE starting WireGuard
+        mkdir -p /etc/netns/${cfg.namespace}
+        cat > /etc/netns/${cfg.namespace}/resolv.conf << EOF
+        nameserver 1.1.1.1
+        nameserver 8.8.8.8
+        EOF
+        
         # Enable IP forwarding
         echo 1 > /proc/sys/net/ipv4/ip_forward
         
@@ -69,14 +76,19 @@ in {
         # Add default route in namespace to use veth
         ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.iproute2}/bin/ip route add default via 10.200.200.1
         
-        # Start WireGuard in namespace
-        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.wireguard-tools}/bin/wg-quick up ${cfg.configFile}
+        # Create modified WireGuard config without DNS line
+        ${pkgs.gnugrep}/bin/grep -v "^DNS" ${cfg.configFile} > /tmp/protonvpn-nodns.conf
+        
+        # Start WireGuard in namespace with modified config
+        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.wireguard-tools}/bin/wg-quick up /tmp/protonvpn-nodns.conf
       '';
       
       preStop = ''
-        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.wireguard-tools}/bin/wg-quick down ${cfg.configFile} 2>/dev/null || true
+        ${pkgs.iproute2}/bin/ip netns exec ${cfg.namespace} ${pkgs.wireguard-tools}/bin/wg-quick down /tmp/protonvpn-nodns.conf 2>/dev/null || true
+        rm -f /tmp/protonvpn-nodns.conf 2>/dev/null || true
         ${pkgs.iproute2}/bin/ip link del veth-vpn 2>/dev/null || true
         ${pkgs.iproute2}/bin/ip netns del ${cfg.namespace} 2>/dev/null || true
+        rm -rf /etc/netns/${cfg.namespace} 2>/dev/null || true
       '';
     };
   };
