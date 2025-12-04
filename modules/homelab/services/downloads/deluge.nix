@@ -84,5 +84,38 @@ in {
         PrivateNetwork = "yes";
       };
     };
+
+    # Add after the deluged-proxy service:
+    systemd.services."deluged-portconfig" = mkIf cfg.useVPN {
+      description = "Configure Deluge with forwarded port";
+      after = [ "deluged.service" "${ns}-portforward.service" ];
+      requires = [ "deluged.service" ];
+      wantedBy = [ "multi-user.target" ];
+      
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+      
+      script = ''
+        # Wait for port to be available
+        for i in {1..30}; do
+          if [ -f /run/${ns}-port ]; then
+            PORT=$(cat /run/${ns}-port)
+            if [ -n "$PORT" ]; then
+              echo "Configuring Deluge to use port $PORT"
+              # Stop deluge, update config, restart
+              ${pkgs.systemd}/bin/systemctl stop deluged.service
+              ${pkgs.gnused}/bin/sed -i 's/"listen_ports": \[.*\]/"listen_ports": ['$PORT', '$PORT']/' ${cfg.dataDir}/.config/deluge/core.conf
+              ${pkgs.systemd}/bin/systemctl start deluged.service
+              exit 0
+            fi
+          fi
+          sleep 2
+        done
+        echo "Failed to get forwarded port"
+        exit 1
+      '';
+    };
   };
 }

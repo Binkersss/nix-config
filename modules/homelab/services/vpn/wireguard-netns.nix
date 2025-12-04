@@ -82,5 +82,43 @@ in
         '';
       };
     };
+
+    systemd.services."${cfg.namespace}-portforward" = {
+      description = "Port forwarding for ${cfg.namespace}";
+      after = [ "${cfg.namespace}.service" ];
+      requires = [ "${cfg.namespace}.service" ];
+      wantedBy = [ "multi-user.target" ];
+      
+      serviceConfig = {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "45";
+      };
+      
+      script = with pkgs; ''
+        while true; do
+          # Request port forwarding
+          PORT=$(${iproute2}/bin/ip netns exec ${cfg.namespace} \
+            ${libnatpmp}/bin/natpmpc -a 1 0 udp 60 -g ${cfg.dnsIP} 2>&1 | \
+            ${gnugrep}/bin/grep "Mapped public port" | ${gawk}/bin/awk '{print $4}')
+          
+          if [ -n "$PORT" ]; then
+            echo "Forwarded port: $PORT"
+            echo "$PORT" > /run/${cfg.namespace}-port
+            
+            # Also request TCP
+            ${iproute2}/bin/ip netns exec ${cfg.namespace} \
+              ${libnatpmp}/bin/natpmpc -a "$PORT" "$PORT" tcp 60 -g ${cfg.dnsIP} >/dev/null 2>&1 || true
+            ${iproute2}/bin/ip netns exec ${cfg.namespace} \
+              ${libnatpmp}/bin/natpmpc -a "$PORT" "$PORT" udp 60 -g ${cfg.dnsIP} >/dev/null 2>&1 || true
+          else
+            echo "Failed to get forwarded port"
+          fi
+          
+          # Refresh every 45 seconds (lease is 60s)
+          sleep 45
+        done
+      '';
+    };
   };
 }
