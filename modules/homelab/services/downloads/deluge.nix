@@ -89,7 +89,7 @@ in {
     systemd.services."deluged-portconfig" = mkIf cfg.useVPN {
       description = "Configure Deluge with forwarded port";
       after = [ "deluged.service" "${ns}-portforward.service" ];
-      requires = [ "deluged.service" ];
+      # requires = [ "deluged.service" ];
       wantedBy = [ "multi-user.target" ];
       
       serviceConfig = {
