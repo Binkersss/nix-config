@@ -103,7 +103,7 @@
   users.users.radarr.extraGroups = [ "nas" ];
   users.users.sonarr.extraGroups = [ "nas" ];
   users.users.jellyfin.extraGroups = [ "nas" ];
-  # users.users.deluge.extraGroups = [ "nas" ];
+  users.users.deluge.extraGroups = [ "nas" ];
 
   systemd.tmpfiles.rules = [
     "d /mnt/usbnas 0775 root nas -"
