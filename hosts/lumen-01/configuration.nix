@@ -101,7 +101,7 @@
   users.users.binker.extraGroups = [ "nas" ];
   users.users.bazarr.extraGroups = [ "nas" ];
   users.users.radarr.extraGroups = [ "nas" ];
-  users.users.sonarr.extraGroups = [ "nas" ];
+  # users.users.sonarr.extraGroups = [ "nas" ];
   users.users.jellyfin.extraGroups = [ "nas" ];
   # users.users.jellyseerr.extraGroups = [ "nas" ];
   users.users.deluge.extraGroups = [ "nas" ];
@@ -112,10 +112,10 @@
     "d /mnt/usbnas/downloads/complete 0775 deluge nas -"
     "d /mnt/usbnas/downloads/incomplete 0775 deluge nas -"
     "d /mnt/usbnas/downloads/incomplete 0775 radarr nas -"
-    "d /mnt/usbnas/downloads 0775 sonarr nas -"
+    # "d /mnt/usbnas/downloads 0775 sonarr nas -"
     "d /mnt/usbnas/downloads 0775 radarr nas -"
     "d /mnt/usbnas/media/movies 0775 radarr nas -"
-    "d /mnt/usbnas/media/tv 0775 sonarr nas -"
+    # "d /mnt/usbnas/media/tv 0775 sonarr nas -"
     "d /mnt/usbnas/media/tv 0775 bazarr nas -"
     "d /mnt/usbnas/media/movies 0775 bazarr nas -"
     "d /mnt/usbnas/media/tv 0775 jellyfin nas -"
@@ -156,9 +156,9 @@
     };
 
 
-    sonarr = {
-     enable = true;
-    };
+    # sonarr = {
+    #  enable = true;
+    # };
 
     prowlarr = {
      enable = true;
