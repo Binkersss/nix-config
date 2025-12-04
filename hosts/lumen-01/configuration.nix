@@ -107,8 +107,8 @@
 
   systemd.tmpfiles.rules = [
     "d /mnt/usbnas 0775 root nas -"
-    "d /mnt/usbnas/downloads 0775 deluge nas -"
-    "d /mnt/usbnas/downloads 0775 radarr nas -"
+    "d /mnt/usbnas/downloads/completed 0775 deluge nas -"
+    "d /mnt/usbnas/downloads/incomplete 0775 radarr nas -"
     "d /mnt/usbnas/downloads 0775 sonarr nas -"
     "d /mnt/usbnas/media/movies 0775 radarr nas -"
     "d /mnt/usbnas/media/tv 0775 sonarr nas -"
@@ -156,11 +156,5 @@
     bazarr = {
       enable = true;
     };
-    
-    # deluge = {
-    #   enable = true;
-    #   downloadLocation = "/mnt/usbnas/downloads";
-    #   useVPN = true;  # Route through VPN
-    # };
   };
 }
