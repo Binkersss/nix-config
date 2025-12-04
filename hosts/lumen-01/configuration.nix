@@ -103,11 +103,13 @@
   users.users.radarr.extraGroups = [ "nas" ];
   users.users.sonarr.extraGroups = [ "nas" ];
   users.users.jellyfin.extraGroups = [ "nas" ];
+  # users.users.jellyseerr.extraGroups = [ "nas" ];
   users.users.deluge.extraGroups = [ "nas" ];
 
   systemd.tmpfiles.rules = [
     "d /mnt/usbnas 0775 root nas -"
     "d /mnt/usbnas/downloads/completed 0775 deluge nas -"
+    "d /mnt/usbnas/downloads/complete 0775 deluge nas -"
     "d /mnt/usbnas/downloads/incomplete 0775 radarr nas -"
     "d /mnt/usbnas/downloads 0775 sonarr nas -"
     "d /mnt/usbnas/media/movies 0775 radarr nas -"
@@ -116,6 +118,9 @@
     "d /mnt/usbnas/media/movies 0775 bazarr nas -"
     "d /mnt/usbnas/media/tv 0775 jellyfin nas -"
     "d /mnt/usbnas/media/movies 0775 jellyfin nas -"
+    # "d /mnt/usbnas/media/tv 0775 jellyseerr nas -"
+    # "d /mnt/usbnas/media/movies 0775 jellyseerr nas -"
+
 
   ];
 
@@ -144,6 +149,10 @@
     jellyfin = { 
       enable = true;
     };
+    jellyseerr = { 
+      enable = true;
+    };
+
 
     sonarr = {
      enable = true;
