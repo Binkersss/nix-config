@@ -57,31 +57,31 @@ in {
     ];
 
     # Bind to VPN namespace if enabled
-    systemd = mkIf cfg.useVPN {
-      services.deluged.bindsTo = [ "netns@${ns}.service" ];
-      services.deluged.requires = [ "network-online.target" "${ns}.service" ];
-      services.deluged.after = [ "${ns}.service" ];
-      services.deluged.serviceConfig.NetworkNamespacePath = [ "/var/run/netns/${ns}" ];
+    systemd.services.deluged = mkIf cfg.useVPN {
+      bindsTo = [ "netns@${ns}.service" ];
+      requires = [ "network-online.target" "${ns}.service" ];
+      after = [ "${ns}.service" ];
+      serviceConfig.NetworkNamespacePath = [ "/var/run/netns/${ns}" ];
+    };
 
-      sockets."deluged-proxy" = {
-        enable = true;
-        description = "Socket for Proxy to Deluge Daemon";
-        listenStreams = [ "58846" ];
-        wantedBy = [ "sockets.target" ];
-      };
+    systemd.sockets."deluged-proxy" = mkIf cfg.useVPN {
+      enable = true;
+      description = "Socket for Proxy to Deluge Daemon";
+      listenStreams = [ "58846" ];
+      wantedBy = [ "sockets.target" ];
+    };
 
-      services."deluged-proxy" = {
-        enable = true;
-        description = "Proxy to Deluge Daemon in Network Namespace";
-        requires = [ "deluged.service" "deluged-proxy.socket" ];
-        after = [ "deluged.service" "deluged-proxy.socket" ];
-        unitConfig = { JoinsNamespaceOf = "deluged.service"; };
-        serviceConfig = {
-          User = "deluge";
-          Group = "deluge";
-          ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:58846";
-          PrivateNetwork = "yes";
-        };
+    systemd.services."deluged-proxy" = mkIf cfg.useVPN {
+      enable = true;
+      description = "Proxy to Deluge Daemon in Network Namespace";
+      requires = [ "deluged.service" "deluged-proxy.socket" ];
+      after = [ "deluged.service" "deluged-proxy.socket" ];
+      unitConfig = { JoinsNamespaceOf = "deluged.service"; };
+      serviceConfig = {
+        User = "deluge";
+        Group = "deluge";
+        ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:58846";
+        PrivateNetwork = "yes";
       };
     };
   };
