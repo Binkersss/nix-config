@@ -103,11 +103,11 @@
   users.users.radarr.extraGroups = [ "nas" ];
   users.users.sonarr.extraGroups = [ "nas" ];
   users.users.jellyfin.extraGroups = [ "nas" ];
-  users.users.deluge.extraGroups = [ "nas" ];
+  # users.users.deluge.extraGroups = [ "nas" ];
 
   systemd.tmpfiles.rules = [
     "d /mnt/usbnas 0775 root nas -"
-    "d /mnt/usbnas/downloads 0775 deluge nas -"
+    # "d /mnt/usbnas/downloads 0775 deluge nas -"
     "d /mnt/usbnas/downloads 0775 radarr nas -"
     "d /mnt/usbnas/downloads 0775 sonarr nas -"
     "d /mnt/usbnas/media/movies 0775 radarr nas -"
@@ -118,10 +118,10 @@
     "d /mnt/usbnas/media/movies 0775 jellyfin nas -"
 
   ];
-  homelab.services.vpn.protonvpn = {
-    enable = true;
-    vpnAddress = "10.2.0.2/32";
-  };
+  # homelab.services.vpn.protonvpn = {
+  #   enable = true;
+  #   vpnAddress = "10.2.0.2/32";
+  # };
   homelab.services = {
     homepage = {
       enable = true;
@@ -147,10 +147,10 @@
       enable = true;
     };
     
-    deluge = {
-      enable = true;
-      downloadLocation = "/mnt/usbnas/downloads";
-      useVPN = true;  # Route through VPN
-    };
+    # deluge = {
+    #   enable = true;
+    #   downloadLocation = "/mnt/usbnas/downloads";
+    #   useVPN = true;  # Route through VPN
+    # };
   };
 }

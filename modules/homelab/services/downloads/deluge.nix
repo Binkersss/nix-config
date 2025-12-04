@@ -56,35 +56,5 @@ in {
       "d ${cfg.downloadLocation} 0775 deluge deluge -"
     ];
 
-    # binding deluged to network namespace
-    systemd.services.deluged = mkIf cfg.useVPN {
-      bindsTo = [ "netns@${vpnCfg.namespace}.service" ];
-      requires = [ "network-online.target" "protonvpn-wg.service" ];
-      after = [ "protonvpn-wg.service" ];
-      serviceConfig.NetworkNamespacePath = [ "/var/run/netns/${vpnCfg.namespace}" ];
-    };
-
-    # allowing delugeweb to access deluged in network namespace
-    systemd.sockets."proxy-to-deluged" = mkIf cfg.useVPN {
-      enable = true;
-      description = "Socket for Proxy to Deluge Daemon";
-      listenStreams = [ "58846" ];
-      wantedBy = [ "sockets.target" ];
-    };
-
-    # creating proxy service on socket
-    systemd.services."proxy-to-deluged" = mkIf cfg.useVPN {
-      enable = true;
-      description = "Proxy to Deluge Daemon in Network Namespace";
-      requires = [ "deluged.service" "proxy-to-deluged.socket" ];
-      after = [ "deluged.service" "proxy-to-deluged.socket" ];
-      unitConfig = { JoinsNamespaceOf = "deluged.service"; };
-      serviceConfig = {
-        User = "deluge";
-        Group = "deluge";
-        ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:58846";
-        PrivateNetwork = "yes";
-      };
-    };
   };
 }

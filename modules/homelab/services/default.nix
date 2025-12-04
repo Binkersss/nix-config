@@ -3,8 +3,8 @@
 {
   imports = [
     ./media
-    ./downloads
-    ./vpn
+    # ./downloads
+    # ./vpn
     ./monitoring
   ];
 }
