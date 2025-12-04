@@ -48,9 +48,15 @@ in
       };
     };
 
+    # Ensure the specific namespace instance starts on boot
+    systemd.services."netns@${cfg.namespace}" = {
+      wantedBy = [ "multi-user.target" ];
+    };
+
     # setting up wireguard interface within network namespace
     systemd.services.protonvpn-wg = {
       description = "ProtonVPN WireGuard interface";
+      wantedBy = [ "multi-user.target" ];  # Start on boot
       bindsTo = [ "netns@${cfg.namespace}.service" ];
       requires = [ "network-online.target" ];
       after = [ "netns@${cfg.namespace}.service" "network-online.target" ];
