@@ -48,15 +48,10 @@ in
       };
     };
 
-    # Ensure the specific namespace instance starts on boot
-    systemd.services."netns@${cfg.namespace}" = {
-      wantedBy = [ "multi-user.target" ];
-    };
-
     # setting up wireguard interface within network namespace
     systemd.services.protonvpn-wg = {
       description = "ProtonVPN WireGuard interface";
-      wantedBy = [ "multi-user.target" ];  # Start on boot
+      wantedBy = [ "multi-user.target" ];
       bindsTo = [ "netns@${cfg.namespace}.service" ];
       requires = [ "network-online.target" ];
       after = [ "netns@${cfg.namespace}.service" "network-online.target" ];
@@ -66,20 +61,21 @@ in
         ExecStart = with pkgs; writers.writeBash "protonvpn-wg-up" ''
           set -e
           
-          # Wait for namespace to be ready
-          for i in {1..10}; do
-            if ${iproute2}/bin/ip netns list | ${gnugrep}/bin/grep -q "^${cfg.namespace}"; then
-              break
-            fi
-            sleep 0.5
-          done
+          # Ensure namespace exists
+          if ! ${iproute2}/bin/ip netns list | ${gnugrep}/bin/grep -q "^${cfg.namespace}"; then
+            ${iproute2}/bin/ip netns add ${cfg.namespace}
+          fi
           
+	  # Create DNS configuration directory for namespace
+          mkdir -p /etc/netns/${cfg.namespace}
+          echo "nameserver 10.2.0.1" > /etc/netns/${cfg.namespace}/resolv.conf
+
           # Clean up any existing interface
           ${iproute2}/bin/ip link del wg0 2>/dev/null || true
           ${iproute2}/bin/ip -n ${cfg.namespace} link del wg0 2>/dev/null || true
           
-          # Create filtered config (remove Address line as wg setconf doesn't accept it)
-          ${gnugrep}/bin/grep -v '^Address' ${cfg.configFile} > /run/protonvpn-wg.conf
+          # Create filtered config (remove Address and DNS lines as wg setconf doesn't accept them)
+          ${gnugrep}/bin/grep -vE '^(Address|DNS)' ${cfg.configFile} > /run/protonvpn-wg.conf
           chmod 600 /run/protonvpn-wg.conf
           
           ${iproute2}/bin/ip link add wg0 type wireguard
