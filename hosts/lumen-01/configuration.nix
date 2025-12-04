@@ -146,9 +146,6 @@
      enable = true;
     };
     
-    flaresolverr = {
-      enable = true;
-    };
     bazarr = {
       enable = true;
     };
