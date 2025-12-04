@@ -2,6 +2,7 @@
 
 {
   imports = [
-    ./protonvpn.nix
+    # ./protonvpn.nix
+    ./wireguard-netns.nix
   ];
 }

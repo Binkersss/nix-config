@@ -107,7 +107,7 @@
 
   systemd.tmpfiles.rules = [
     "d /mnt/usbnas 0775 root nas -"
-    # "d /mnt/usbnas/downloads 0775 deluge nas -"
+    "d /mnt/usbnas/downloads 0775 deluge nas -"
     "d /mnt/usbnas/downloads 0775 radarr nas -"
     "d /mnt/usbnas/downloads 0775 sonarr nas -"
     "d /mnt/usbnas/media/movies 0775 radarr nas -"
@@ -118,10 +118,20 @@
     "d /mnt/usbnas/media/movies 0775 jellyfin nas -"
 
   ];
-  # homelab.services.vpn.protonvpn = {
-  #   enable = true;
-  #   vpnAddress = "10.2.0.2/32";
-  # };
+
+  homelab.services.vpn.wireguard-netns = {
+    enable = true;
+    configFile = "/root/protonvpn.conf";
+    privateIP = "10.2.0.2/32";
+    dnsIP = "10.2.0.1";
+  };
+
+  homelab.services.deluge = {
+    enable = true;
+    downloadLocation = "/mnt/usbnas/downloads";
+    useVPN = true;
+  };
+
   homelab.services = {
     homepage = {
       enable = true;

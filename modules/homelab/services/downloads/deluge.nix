@@ -4,7 +4,7 @@ with lib;
 
 let
   cfg = config.homelab.services.deluge;
-  vpnCfg = config.homelab.services.vpn.protonvpn;
+  ns = config.homelab.services.vpn.wireguard-netns.namespace;
 in {
   options.homelab.services.deluge = {
     enable = mkEnableOption "Deluge torrent client";
@@ -56,5 +56,33 @@ in {
       "d ${cfg.downloadLocation} 0775 deluge deluge -"
     ];
 
+    # Bind to VPN namespace if enabled
+    systemd = mkIf cfg.useVPN {
+      services.deluged.bindsTo = [ "netns@${ns}.service" ];
+      services.deluged.requires = [ "network-online.target" "${ns}.service" ];
+      services.deluged.after = [ "${ns}.service" ];
+      services.deluged.serviceConfig.NetworkNamespacePath = [ "/var/run/netns/${ns}" ];
+
+      sockets."deluged-proxy" = {
+        enable = true;
+        description = "Socket for Proxy to Deluge Daemon";
+        listenStreams = [ "58846" ];
+        wantedBy = [ "sockets.target" ];
+      };
+
+      services."deluged-proxy" = {
+        enable = true;
+        description = "Proxy to Deluge Daemon in Network Namespace";
+        requires = [ "deluged.service" "deluged-proxy.socket" ];
+        after = [ "deluged.service" "deluged-proxy.socket" ];
+        unitConfig = { JoinsNamespaceOf = "deluged.service"; };
+        serviceConfig = {
+          User = "deluge";
+          Group = "deluge";
+          ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:58846";
+          PrivateNetwork = "yes";
+        };
+      };
+    };
   };
 }
