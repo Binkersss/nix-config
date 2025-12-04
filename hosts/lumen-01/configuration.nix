@@ -156,9 +156,9 @@
     };
 
 
-    # sonarr = {
-    #  enable = true;
-    # };
+    sonarr = {
+     enable = true;
+    };
 
     prowlarr = {
      enable = true;
