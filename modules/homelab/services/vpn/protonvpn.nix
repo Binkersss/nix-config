@@ -11,7 +11,7 @@ in
 
     configFile = mkOption {
       type = types.path;
-      default = /root/protonvpn.conf;
+      default = "/root/protonvpn.conf";
       description = "Path to ProtonVPN WireGuard configuration file";
     };
 
@@ -44,7 +44,10 @@ in
         Type = "oneshot";
         RemainAfterExit = true;
         ExecStart = "${pkgs.iproute2}/bin/ip netns add %I";
-        ExecStop = "${pkgs.iproute2}/bin/ip netns del %I";
+        ExecStop = with pkgs; writers.writeBash "netns-stop" ''
+          ${iproute2}/bin/ip netns del %I 2>/dev/null || true
+          rm -f /var/run/netns/%I
+        '';
       };
     };
 
@@ -66,10 +69,10 @@ in
             ${iproute2}/bin/ip netns add ${cfg.namespace}
           fi
           
-	  # Create DNS configuration directory for namespace
+          # Create DNS configuration directory for namespace
           mkdir -p /etc/netns/${cfg.namespace}
           echo "nameserver 10.2.0.1" > /etc/netns/${cfg.namespace}/resolv.conf
-
+          
           # Clean up any existing interface
           ${iproute2}/bin/ip link del wg0 2>/dev/null || true
           ${iproute2}/bin/ip -n ${cfg.namespace} link del wg0 2>/dev/null || true

@@ -118,7 +118,10 @@
     "d /mnt/usbnas/media/movies 0775 jellyfin nas -"
 
   ];
-
+  homelab.services.vpn.protonvpn = {
+    enable = true;
+    vpnAddress = "10.2.0.2/32";
+  };
   homelab.services = {
     homepage = {
       enable = true;
@@ -126,12 +129,6 @@
 
     radarr = {
       enable = true;
-    };
-
-    vpn.protonvpn = {
-      enable = true;
-      configFile = "/root/protonvpn.conf";
-      vpnAddress = "10.2.0.2/32";
     };
 
     jellyfin = { 
