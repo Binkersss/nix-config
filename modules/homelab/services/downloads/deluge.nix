@@ -117,5 +117,26 @@ in {
         exit 1
       '';
     };
+
+    systemd.sockets."deluge-port-proxy" = mkIf cfg.useVPN {
+      enable = true;
+      description = "Proxy incoming torrent port to Deluge inside namespace";
+      listenStreams = [ "45137" ]; # or dynamically read /run/protonvpn-port
+      wantedBy = [ "sockets.target" ];
+    };
+    
+    systemd.services."deluge-port-proxy" = mkIf cfg.useVPN {
+      enable = true;
+      description = "Proxy incoming torrent TCP/UDP port into VPN namespace";
+      unitConfig.JoinsNamespaceOf = "deluged.service";
+      after = [ "deluged.service" "deluge-port-proxy.socket" ];
+      requires = [ "deluged.service" "deluge-port-proxy.socket" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd --exit-idle-time=30min 127.0.0.1:45137";
+        User = "deluge";
+        Group = "deluge";
+      };
+    };
+
   };
 }
