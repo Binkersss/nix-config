@@ -7,3 +7,10 @@ uv
 tldr
 thefuck
 
+# This gave sonarr access
+➜  nix-config git:(main) ✗ sudo chmod -R g+w "/mnt/usbnas/downloads/incomplete/"
+[sudo] password for binker:
+➜  nix-config git:(main) ✗ sudo chgrp -R nas "/mnt/usbnas/downloads/incomplete/"
+
+➜  nix-config git:(main) ✗ sudo chmod -R g+w "/mnt/usbnas/downloads/complete/"
+➜  nix-config git:(main) ✗ sudo chgrp -R nas "/mnt/usbnas/downloads/complete/"

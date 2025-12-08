@@ -14,12 +14,34 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/lumen-01/configuration.nix
-	        ./hosts/lumen-01/hardware-configuration.nix
+          ./hosts/lumen-01/hardware-configuration.nix
 
           ./hosts/common/bases/server-base.nix
           ./hosts/common/users/binker.nix
 
 	  ./modules/homelab
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.binker = ./home/profiles/binker.nix;
+
+	    # Optionally, use home-manager.extraSpecialArgs to pass
+            # arguments to home.nix
+          }
+        ];
+      };
+      
+      nixosConfigurations.spectra = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/spectra/configuration.nix
+          ./hosts/spectra/hardware-configuration.nix
+
+          ./hosts/common/bases/desktop-base.nix
+          ./hosts/common/users/binker.nix
+
 
           home-manager.nixosModules.home-manager
           {

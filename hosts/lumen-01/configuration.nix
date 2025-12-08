@@ -100,8 +100,8 @@
   };
   users.users.binker.extraGroups = [ "nas" ];
   users.users.bazarr.extraGroups = [ "nas" ];
-  users.users.radarr.extraGroups = [ "nas" ];
-  users.users.sonarr.extraGroups = [ "nas" ];
+  users.users.radarr.extraGroups = [ "nas" "deluge" ];
+  users.users.sonarr.extraGroups = [ "nas" "deluge" ];
   users.users.jellyfin.extraGroups = [ "nas" ];
   # users.users.jellyseerr.extraGroups = [ "nas" ];
   users.users.deluge.extraGroups = [ "nas" ];
@@ -110,8 +110,11 @@
     "d /mnt/usbnas 0775 root nas -"
     "d /mnt/usbnas/downloads/completed 0775 deluge nas -"
     "d /mnt/usbnas/downloads/complete 0775 deluge nas -"
+    "d /mnt/usbnas/downloads/complete 0775 radarr nas -"
+    "d /mnt/usbnas/downloads/complete 0775 sonarr nas -"
     "d /mnt/usbnas/downloads/incomplete 0775 deluge nas -"
     "d /mnt/usbnas/downloads/incomplete 0775 radarr nas -"
+    "d /mnt/usbnas/downloads/incomplete 0775 sonarr nas -"
     "d /mnt/usbnas/downloads 0775 sonarr nas -"
     "d /mnt/usbnas/downloads 0775 radarr nas -"
     "d /mnt/usbnas/media/movies 0775 radarr nas -"
