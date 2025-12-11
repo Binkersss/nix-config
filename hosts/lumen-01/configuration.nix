@@ -72,11 +72,6 @@
     enable = true;
     openFirewall = true;
     settings = {
-    users = {
-      "binker" = {
-        passwordFile = "/etc/samba-pass-binker";
-      };
-    };
       global = {
         "workgroup" = "WORKGROUP";
         "server string" = "NixOS Media Server";
