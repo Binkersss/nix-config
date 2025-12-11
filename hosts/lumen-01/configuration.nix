@@ -92,11 +92,6 @@
         "force user" = "binker";
       };
     };
-    users = {
-      "binker" = {
-        passwordFile = "/etc/samba-pass-binker";
-      };
-    };
   };
   
   
