@@ -134,7 +134,7 @@
     path = with pkgs; [ 
     	git
 	systemd
-	ssh
+	openssh
     ];
 
     serviceConfig = {
