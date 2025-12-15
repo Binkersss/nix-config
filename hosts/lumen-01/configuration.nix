@@ -130,10 +130,17 @@
 
   systemd.services.chpldev-deploy = {
     description = "Deploy chpldev site";
+
+    path = with pkgs; [ 
+    	git
+	systemd
+    ];
+
     serviceConfig = {
       Type = "oneshot";
       User = "root";
       WorkingDirectory =  "/home/binker/chpldev";
+
       ExecStart = pkgs.writeShellScript "chpldev-deploy" ''
         set -e
         git pull origin main
