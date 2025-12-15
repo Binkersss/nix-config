@@ -128,27 +128,52 @@
     };
   };
 
+  systemd.services.chpldev-deploy = {
+    description = "Deploy chpldev site";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = ''
+        cd /home/binker/chpldev
+        git pull origin main
+        systemctl restart chldev-site.service
+      '';
+    };
+  };
+
   systemd.services.chpldev-webhook = {
     description = "GitHub webhook listener for chpldev";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
-    
-    path = with pkgs; [ git systemd ];
-    
+  
+    path = with pkgs; [
+      git
+      systemd
+      openssh
+      netcat
+    ];
+  
     serviceConfig = {
       Type = "simple";
       User = "binker";
+  
       ExecStart = pkgs.writeShellScript "webhook-listener" ''
         while true; do
-          echo "HTTP/1.1 200 OK\n\n" | ${pkgs.netcat}/bin/nc -l -p 9000 -q 1
-          cd /home/binker/chpldev
-          ${pkgs.git}/bin/git pull origin main
-          ${pkgs.systemd}/bin/systemctl restart chldev-site.service
+          {
+            printf "HTTP/1.1 200 OK\r\n"
+            printf "Content-Length: 2\r\n"
+            printf "Content-Type: text/plain\r\n"
+            printf "\r\n"
+            printf "OK"
+          } | nc -l 9000 
+	
+	systemctl start chpldev-deploy.service
         done
       '';
+  
       Restart = "always";
     };
   };
+
 
   users.groups.nas = { 
     gid = 1000;
