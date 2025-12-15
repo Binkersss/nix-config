@@ -156,7 +156,7 @@
   
     serviceConfig = {
       Type = "simple";
-      User = "binker";
+      User = "root";
   
       ExecStart = pkgs.writeShellScript "webhook-listener" ''
         while true; do
