@@ -129,7 +129,7 @@
       Type = "simple";
       User = "verso";
       WorkingDirectory = "/var/www/chpldev";
-      # Build once at service start
+      Environment = "CGO_ENABLED=0";
       ExecStart = "${pkgs.go}/bin/go run main.go";
       Restart = "always";
       RestartSec = 5;
