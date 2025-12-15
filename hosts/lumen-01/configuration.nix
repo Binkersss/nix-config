@@ -54,6 +54,16 @@
     openFirewall = true;
   };
 
+  programs.ssh = {
+    extraConfig = "
+      Host git
+        Hostname github.com
+        IdentityFile ~/.ssh/id_ed25519_lab_github
+        IdentitiesOnly yes 
+        AddKeysToAgent yes
+    ";
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -99,7 +109,7 @@
     enable = true;
     # tunnels = {
     #   "chpldev" = {
-    #     credentialsFile = "/root/.cloudflared/<tunnel-id>.json";
+    #     credentialsFile = "/root/.cloudflared/1978f09f-9c6e-4bea-aa61-91bef93691e4.json";
     #     default = "http_status:404";
     #     ingress = {
     #       "chappelle.dev" = "http://localhost:3000";
