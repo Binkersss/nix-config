@@ -104,12 +104,13 @@
         default = "http_status:404";
         ingress = {
           "chappelle.dev" = "http://localhost:8080";
+	  "webhook.chappelle.dev" = "http://localhost:9000";
         };
       };
     };
   };
 
-  systemd.services.chldev-site = {
+  systemd.services.chpldev-site = {
     description = "Chappelle.dev server";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
@@ -126,15 +127,29 @@
       RestartSec = 5;
     };
   };
-  users.users.verso = { # verso owns it and dist/
-    isSystemUser = true;
-    group = "verso";
-    home = "/var/www/chpldev";
-    createHome = true;
+
+  systemd.services.chpldev-webhook = {
+    description = "GitHub webhook listener for chpldev";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    
+    path = with pkgs; [ git systemd ];
+    
+    serviceConfig = {
+      Type = "simple";
+      User = "binker";
+      ExecStart = pkgs.writeShellScript "webhook-listener" ''
+        while true; do
+          echo "HTTP/1.1 200 OK\n\n" | ${pkgs.netcat}/bin/nc -l -p 9000 -q 1
+          cd /home/binker/chpldev
+          ${pkgs.git}/bin/git pull origin main
+          ${pkgs.systemd}/bin/systemctl restart chldev-site.service
+        done
+      '';
+      Restart = "always";
+    };
   };
 
-  users.groups.verso = {};
-  
   users.groups.nas = { 
     gid = 1000;
   };
