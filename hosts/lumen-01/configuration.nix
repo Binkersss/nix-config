@@ -112,7 +112,7 @@
         credentialsFile = "/root/.cloudflared/1978f09f-9c6e-4bea-aa61-91bef93691e4.json";
         default = "http_status:404";
         ingress = {
-          "chappelle.dev" = "http://localhost:3000";
+          "chappelle.dev" = "http://localhost:8080";
         };
       };
     };
@@ -123,19 +123,22 @@
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     
+    path = with pkgs; [ go gcc ];
+    
     serviceConfig = {
       Type = "simple";
       User = "verso";
-      WorkingDirectory = "/var/www/chpl.dev";
+      WorkingDirectory = "/var/www/chpldev";
+      # Build once at service start
       ExecStart = "${pkgs.go}/bin/go run main.go";
       Restart = "always";
+      RestartSec = 5;
     };
   };
-
-  users.users.verso = {
+  users.users.verso = { # verso owns it
     isSystemUser = true;
     group = "verso";
-    home = "/var/www/chpl.dev";
+    home = "/var/www/chpldev";
     createHome = true;
   };
 
