@@ -122,7 +122,7 @@
       User = "binker";
       WorkingDirectory = "/home/binker/chpldev";
       Environment = "CGO_ENABLED=0";
-      ExecStart = "${pkgs.git}/bin/git pull && ${pkgs.go}/bin/go run main.go";
+      ExecStart = "${pkgs.go}/bin/go run main.go";
       Restart = "always";
       RestartSec = 5;
     };
