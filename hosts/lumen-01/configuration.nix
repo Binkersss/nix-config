@@ -122,7 +122,7 @@
       User = "binker";
       WorkingDirectory = "/home/binker/chpldev";
       Environment = "CGO_ENABLED=0";
-      ExecStart = "${pkgs.go}/bin/go run main.go";
+      ExecStart = "${pkgs.git}/bin/git pull && ${pkgs.go}/bin/go run main.go";
       Restart = "always";
       RestartSec = 5;
     };
@@ -145,7 +145,7 @@
       ExecStart = pkgs.writeShellScript "chpldev-deploy" ''
         set -e
         git pull origin main
-        /run/current-system/sw/bin/sudo /run/current-system/sw/bin/systemctl restart chpldev-site.service
+        /run/wrappers/bin/sudo /run/current-system/sw/bin/systemctl restart chpldev-site.service
       '';
     };
   };
