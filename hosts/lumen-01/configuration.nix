@@ -93,7 +93,43 @@
       };
     };
   };
-  
+ 
+   # Cloudflare Tunnel service
+  services.cloudflared = {
+    enable = true;
+    # tunnels = {
+    #   "chpldev" = {
+    #     credentialsFile = "/root/.cloudflared/<tunnel-id>.json";
+    #     default = "http_status:404";
+    #     ingress = {
+    #       "chappelle.dev" = "http://localhost:3000";
+    #     };
+    #   };
+    # };
+  };
+
+  systemd.services.verso-site = {
+    description = "Chappelle.dev server";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    
+    serviceConfig = {
+      Type = "simple";
+      User = "verso";
+      WorkingDirectory = "/var/www/chpl.dev";
+      ExecStart = "${pkgs.go}/bin/go run main.go";
+      Restart = "always";
+    };
+  };
+
+  users.users.verso = {
+    isSystemUser = true;
+    group = "verso";
+    home = "/var/www/chpl.dev";
+    createHome = true;
+  };
+
+  users.groups.verso = {};
   
   users.groups.nas = { 
     gid = 1000;
