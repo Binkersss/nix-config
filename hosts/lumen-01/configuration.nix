@@ -145,7 +145,7 @@
       ExecStart = pkgs.writeShellScript "chpldev-deploy" ''
         set -e
         git pull origin main
-        sudo /run/current-system/sw/bin/systemctl restart chpldev-site.service
+        /run/current-system/sw/bin/sudo /run/current-system/sw/bin/systemctl restart chpldev-site.service
       '';
     };
   };
