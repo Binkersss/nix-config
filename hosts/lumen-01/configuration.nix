@@ -135,7 +135,7 @@
       RestartSec = 5;
     };
   };
-  users.users.verso = { # verso owns it
+  users.users.verso = { # verso owns it and dist/
     isSystemUser = true;
     group = "verso";
     home = "/var/www/chpldev";
