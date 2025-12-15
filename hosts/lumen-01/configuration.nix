@@ -54,16 +54,7 @@
     openFirewall = true;
   };
 
-  programs.ssh = {
-    extraConfig = "
-      Host git
-        Hostname github.com
-        IdentityFile ~/.ssh/id_ed25519_lab_github
-        IdentitiesOnly yes 
-        AddKeysToAgent yes
-    ";
-  };
-
+  
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -127,8 +118,8 @@
     
     serviceConfig = {
       Type = "simple";
-      User = "verso";
-      WorkingDirectory = "/var/www/chpldev";
+      User = "binker";
+      WorkingDirectory = "/home/binker/chpldev";
       Environment = "CGO_ENABLED=0";
       ExecStart = "${pkgs.go}/bin/go run main.go";
       Restart = "always";

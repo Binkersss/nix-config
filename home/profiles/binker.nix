@@ -9,6 +9,17 @@
   home.username = "binker";
   home.homeDirectory = "/home/binker";
 
+  programs.ssh = {
+    enable = true;
+    
+    # Add keys automatically
+    extraConfig = ''
+      AddKeysToAgent yes
+      IdentityFile ~/.ssh/id_ed25519_lab_github
+    '';
+  };
+  services.ssh-agent.enable = true;
+
   programs.git = {
     enable = true;
     settings = {
