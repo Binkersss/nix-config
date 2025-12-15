@@ -107,18 +107,18 @@
    # Cloudflare Tunnel service
   services.cloudflared = {
     enable = true;
-    # tunnels = {
-    #   "chpldev" = {
-    #     credentialsFile = "/root/.cloudflared/1978f09f-9c6e-4bea-aa61-91bef93691e4.json";
-    #     default = "http_status:404";
-    #     ingress = {
-    #       "chappelle.dev" = "http://localhost:3000";
-    #     };
-    #   };
-    # };
+    tunnels = {
+      "chpldev" = {
+        credentialsFile = "/root/.cloudflared/1978f09f-9c6e-4bea-aa61-91bef93691e4.json";
+        default = "http_status:404";
+        ingress = {
+          "chappelle.dev" = "http://localhost:3000";
+        };
+      };
+    };
   };
 
-  systemd.services.verso-site = {
+  systemd.services.chldev-site = {
     description = "Chappelle.dev server";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
