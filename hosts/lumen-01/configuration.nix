@@ -132,10 +132,12 @@
     description = "Deploy chpldev site";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = ''
-        cd /home/binker/chpldev
+      User = "root";
+      WorkingDirectory =  "/home/binker/chpldev";
+        ExecStart = pkgs.writeShellScript "chpldev-deploy" ''
+        set -e
         git pull origin main
-        systemctl restart chldev-site.service
+        systemctl restart chpldev-site.service
       '';
     };
   };
@@ -174,6 +176,14 @@
     };
   };
 
+  # Remove extraRules entirely
+  security.sudo.extraRules = [];
+  
+  # Instead, add a sudoers fragment via environment.etc
+  environment.etc."sudoers.d/deployuser".text = ''
+    deployuser ALL=(root) NOPASSWD: /bin/systemctl restart chpldev-deploy.service
+    deployuser ALL=(root) NOPASSWD: /bin/systemctl start chpldev-deploy.service
+  '';
 
   users.groups.nas = { 
     gid = 1000;
