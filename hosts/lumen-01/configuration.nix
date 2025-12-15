@@ -139,7 +139,7 @@
 
     serviceConfig = {
       Type = "oneshot";
-      User = "root";
+      User = "binker";
       WorkingDirectory =  "/home/binker/chpldev";
 
       ExecStart = pkgs.writeShellScript "chpldev-deploy" ''
@@ -185,7 +185,13 @@
   };
 
   # Remove extraRules entirely
-  security.sudo.extraRules = [];
+  security.sudo.extraRules = [{
+    users = [ "binker" ];
+    commands = [{
+      command = "/run/current-system/sw/bin/systemctl restart chpldev-site.service";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
   
   # Instead, add a sudoers fragment via environment.etc
   environment.etc."sudoers.d/deployuser".text = ''
