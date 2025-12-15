@@ -40,6 +40,7 @@
     htop
     tmux
     zsh
+    cloudflared
   ];
 
   programs.zsh.enable = true;
