@@ -18,7 +18,7 @@
   };
 
   outputs =
-    { self, nixpkgs, home-manager, zen-browser, noctalia, .. }:
+    { self, nixpkgs, home-manager, zen-browser, noctalia, ... }:
     {
       nixosConfigurations.lumen-01 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
