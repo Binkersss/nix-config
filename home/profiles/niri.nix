@@ -26,7 +26,7 @@
 
       outputs = {
 	"eDP-1" = {
-	  scale = 2;
+	  scale = 1.5;
 	};
       };
       
