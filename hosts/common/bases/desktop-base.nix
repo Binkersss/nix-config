@@ -60,6 +60,7 @@
     # Text fonts
     fira-code
     jetbrains-mono
+    monoisome
     inter
     ibm-plex
     merriweather
@@ -67,24 +68,19 @@
     # Icon fonts
     nerd-fonts-fira-code
     nerd-fonts-jetbrains-mono
-    nerd-fonts-hack
+    nerd-fonts-monoisome
     font-awesome
     material-design-icons-font
     powerline-fonts
   ];
-	
-  
-  ######################################################
-  # Font configuration
-  ######################################################
+
   fonts.fontconfig.enable = true;
 
-  # Default fonts for each generic family
   fonts.fontconfig.defaultFonts = {
     monospace = [
       "Fira Code Nerd Font"
       "JetBrains Mono Nerd Font"
-      "Hack Nerd Font"
+      "Monoisome Nerd Font"
     ];
     sansSerif = [
       "Inter"
@@ -100,15 +96,13 @@
     ];
   };
 
-  ######################################################
-  # Optional: Ensure fonts are available for GTK/QT apps
-  ######################################################
   fonts.fonts = with pkgs; [
     fira-code
     fira-code-nerd-font
     jetbrains-mono
     jetbrains-mono-nerd-font
-    hack
+    monoisome
+    monoisome-nerd-font
     inter
     ibm-plex
     merriweather
@@ -116,29 +110,7 @@
     material-design-icons-font
     powerline-fonts
   ];
-
-  ######################################################
-  # Optional: fallback rules for missing icons/glyphs
-  ######################################################
-  fonts.fontconfig.extraConfig = ''
-    # fallback for Nerd Fonts
-    <match target="pattern">
-      <test name="family" compare="eq">
-        <string>monospace</string>
-      </test>
-      <edit name="family" mode="prepend" binding="string">Fira Code Nerd Font</edit>
-    </match>
-
-    # fallback for Font Awesome
-    <match target="pattern">
-      <test name="family" compare="eq">
-        <string>sans-serif</string>
-      </test>
-      <edit name="family" mode="prepend" binding="string">Font Awesome 6 Free Solid</edit>
-      <edit name="family" mode="prepend" binding="string">Material Design Icons</edit>
-    </match>
-  '';
-
+  
   programs.zsh.enable = true;
 
   environment.sessionVariables = {
