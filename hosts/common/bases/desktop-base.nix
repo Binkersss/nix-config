@@ -55,7 +55,92 @@
     htop
     tmux
     zsh
+
+    fontconfig
+    # Text fonts
+    fira-code
+    jetbrains-mono
+    inter
+    ibm-plex
+    merriweather
+
+    # Icon fonts
+    nerd-fonts-fira-code
+    nerd-fonts-jetbrains-mono
+    nerd-fonts-hack
+    font-awesome
+    material-design-icons-font
+    powerline-fonts
   ];
+	
+  
+  ######################################################
+  # Font configuration
+  ######################################################
+  fonts.fontconfig.enable = true;
+
+  # Enable ligatures for coding fonts
+  fonts.fontconfig.enableLigatures = true;
+
+  # Default fonts for each generic family
+  fonts.fontconfig.defaultFonts = {
+    monospace = [
+      "Fira Code Nerd Font"
+      "JetBrains Mono Nerd Font"
+      "Hack Nerd Font"
+    ];
+    sansSerif = [
+      "Inter"
+      "IBM Plex Sans"
+      "DejaVu Sans"
+      "Font Awesome 6 Free Solid"
+      "Material Design Icons"
+    ];
+    serif = [
+      "IBM Plex Serif"
+      "Merriweather"
+      "DejaVu Serif"
+    ];
+  };
+
+  ######################################################
+  # Optional: Ensure fonts are available for GTK/QT apps
+  ######################################################
+  fonts.fonts = with pkgs; [
+    fira-code
+    fira-code-nerd-font
+    jetbrains-mono
+    jetbrains-mono-nerd-font
+    hack
+    inter
+    ibm-plex
+    merriweather
+    font-awesome
+    material-design-icons-font
+    powerline-fonts
+  ];
+
+  ######################################################
+  # Optional: fallback rules for missing icons/glyphs
+  ######################################################
+  fonts.fontconfig.extraConfig = ''
+    # fallback for Nerd Fonts
+    <match target="pattern">
+      <test name="family" compare="eq">
+        <string>monospace</string>
+      </test>
+      <edit name="family" mode="prepend" binding="string">Fira Code Nerd Font</edit>
+    </match>
+
+    # fallback for Font Awesome
+    <match target="pattern">
+      <test name="family" compare="eq">
+        <string>sans-serif</string>
+      </test>
+      <edit name="family" mode="prepend" binding="string">Font Awesome 6 Free Solid</edit>
+      <edit name="family" mode="prepend" binding="string">Material Design Icons</edit>
+    </match>
+  '';
 
   programs.zsh.enable = true;
 
