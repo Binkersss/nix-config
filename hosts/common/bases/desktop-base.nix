@@ -22,7 +22,7 @@
 
   # Enable niri (scrollable tiling Wayland compositor)
     programs.niri.enable = true;
-f
+
     # Enable greetd with tuigreet as display manager
     services.greetd = {
       enable = true;
