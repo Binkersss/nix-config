@@ -68,7 +68,7 @@
     # System / text fonts
     fira-code
     jetbrains-mono
-    hack
+    hack-font
     inter
     ibm-plex
     merriweather
