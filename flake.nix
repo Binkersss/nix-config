@@ -56,10 +56,9 @@
           ./hosts/common/bases/desktop-base.nix
           ./hosts/common/users/binker.nix
            
-	  home-manager.backupFileExtension = "bak";
-
           home-manager.nixosModules.home-manager
           {
+	    home-manager.backupFileExtension = "bak";
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.binker = ./home/profiles/binker.nix;
