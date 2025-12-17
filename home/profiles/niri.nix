@@ -47,14 +47,14 @@
 
 	focus-ring = {
 	  width = 4;
-	  active-color = "#7fc8ff";
-	  inactive-color = "#505050";
+	  # active-color = "#7fc8ff";
+	  # inactive-color = "#505050";
 	};
 	border = {
 	  off = true;
 	  width = 4; 
-	  active-color = "#7fc8ff";
-	  inactive-color = "#505050";
+	  # active-color = "#7fc8ff";
+	  # inactive-color = "#505050";
 
 	  urgent-color = "#9b0000";
 	};
