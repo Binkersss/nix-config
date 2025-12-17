@@ -20,8 +20,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable niri (scrollable tiling Wayland compositor)
-    programs.niri.enable = true;
 
     # Enable greetd with tuigreet as display manager
     services.greetd = {
