@@ -62,7 +62,7 @@
       };
 
       hotkey-overlay = {
-        hidden = true;
+        skip-at-startup = true;
       };
 
       prefer-no-csd = true;
