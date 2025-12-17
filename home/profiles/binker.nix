@@ -4,6 +4,7 @@
   imports = [
     ./base.nix
     ../programs/packages
+    ./desktop.nix
   ];
 
   home.username = "binker";

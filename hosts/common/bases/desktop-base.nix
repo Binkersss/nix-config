@@ -20,6 +20,23 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  # Enable niri (scrollable tiling Wayland compositor)
+    programs.niri.enable = true;
+
+    # Enable greetd with tuigreet as display manager
+    services.greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd niri-session";
+          user = "greeter";
+        };
+      };
+    };
+
+  # XWayland support
+  programs.xwayland.enable = true;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";

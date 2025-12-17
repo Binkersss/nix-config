@@ -6,5 +6,6 @@
     ./networking.nix
     ./monitoring.nix
     ./development.nix
+    ./gui-tools.nix
   ];
 }
