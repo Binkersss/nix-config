@@ -22,7 +22,6 @@
       outputs = {
 	"eDP-1" = {
 	  scale = 1;
-	  transform = "normal";
 	};
       };
       
