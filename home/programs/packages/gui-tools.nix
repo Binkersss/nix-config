@@ -3,6 +3,12 @@
   home.packages = with pkgs; [
     # Terminal
     ghostty
+
+    # Launcher
+    fuzzel
+
+    # Locker
+    swaylock
     
     kdePackages.dolphin
     kdePackages.qtwayland  # Required for Dolphin on Wayland
