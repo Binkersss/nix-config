@@ -95,8 +95,8 @@
           allowPanelsOnScreenWithoutBar = true;
         };
         ui = {
-          fontDefault = "";
-          fontFixed = "";
+          fontDefault = "Inter";
+          fontFixed = "Fira Code Nerd Font";
           fontDefaultScale = 1;
           fontFixedScale = 1;
           tooltipsEnabled = true;
