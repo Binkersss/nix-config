@@ -57,27 +57,41 @@
     zsh
 
     fontconfig
-    # Text fonts
+  ];
+
+  fonts.fontconfig.enable = true;
+
+  ######################################################
+  # Fonts to be installed
+  ######################################################
+  fonts.packages = with pkgs; [
+    # System / text fonts
     fira-code
     jetbrains-mono
+    hack
     inter
     ibm-plex
     merriweather
 
     # Icon fonts
-    nerdFonts.firaCode
-    nerdFonts.jetbrainsMono
     font-awesome
     material-design-icons-font
     powerline-fonts
+
+    # Nerd Fonts subset (FiraCode, JetBrains Mono, Hack)
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.hack
   ];
 
-  fonts.fontconfig.enable = true;
-
+  ######################################################
+  # Default fonts for applications
+  ######################################################
   fonts.fontconfig.defaultFonts = {
     monospace = [
       "Fira Code Nerd Font"
       "JetBrains Mono Nerd Font"
+      "Hack Nerd Font"
     ];
     sansSerif = [
       "Inter"
@@ -92,21 +106,6 @@
       "DejaVu Serif"
     ];
   };
-
-  fonts.fonts = with pkgs; [
-    fira-code
-    jetbrains-mono
-    inter
-    ibm-plex
-    merriweather
-
-    nerdfonts.firaCode
-    nerdfonts.jetBrainsMono
-
-    font-awesome
-    material-design-icons-font
-    powerline-fonts
-  ];
   
   programs.zsh.enable = true;
 
