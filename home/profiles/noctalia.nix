@@ -3,7 +3,7 @@
   home-manager.users.drfoobar = {
     # import the home manager module
     imports = [
-      inputs.noctalia.homeModules.default
+      noctalia.homeModules.default
     ];
 
     # configure options
