@@ -55,6 +55,8 @@
 
           ./hosts/common/bases/desktop-base.nix
           ./hosts/common/users/binker.nix
+           
+	  home-manager.backupFileExtension = "bak";
 
           home-manager.nixosModules.home-manager
           {

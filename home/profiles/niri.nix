@@ -4,8 +4,6 @@
     niri.homeModules.niri
   ];
   
-  xdg.configFile."niri/config.kdl".force = true;
-
   programs.niri = {
     enable = true;
 
