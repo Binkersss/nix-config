@@ -6,6 +6,11 @@
 
   programs.niri = {
     enable = true;
+
+    package = pkgs.niri.orverrideAttrs ( old: {
+      doCheck = false;
+      doInstallCheck = false;
+    });
     
     settings = {
       input = {
