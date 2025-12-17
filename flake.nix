@@ -24,7 +24,19 @@
 
   outputs =
     { self, nixpkgs, home-manager, zen-browser, noctalia, niri, ... }:
-    {
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          (final: prev: {
+            niri = prev.niri.overrideAttrs (_: {
+              doCheck = false;
+            });
+          })
+        ];
+      };
+    in {
       nixosConfigurations.lumen-01 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
