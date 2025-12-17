@@ -31,8 +31,8 @@
               {
                 id = "Clock";
                 usePrimaryColor = false;
-		formatHorizontal: "HH:mm dd.MM";
-		formatVertical: "HH mm - dd MM";
+		formatHorizontal = "HH:mm dd.MM";
+		formatVertical = "HH mm - dd MM";
               }
               {
                 id = "SystemMonitor";
