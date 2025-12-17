@@ -4,7 +4,6 @@
     # Terminal
     ghostty
     
-    File manager
     kdePackages.dolphin
     kdePackages.qtwayland  # Required for Dolphin on Wayland
     
