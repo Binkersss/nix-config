@@ -79,9 +79,6 @@
   ######################################################
   fonts.fontconfig.enable = true;
 
-  # Enable ligatures for coding fonts
-  fonts.fontconfig.enableLigatures = true;
-
   # Default fonts for each generic family
   fonts.fontconfig.defaultFonts = {
     monospace = [
