@@ -57,7 +57,10 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.binker = ./home/profiles/binker.nix;
-            home-manager.extraSpecialArgs = { inherit zen-browser; inherit noctalia; };
+            home-manager.extraSpecialArgs = { 
+	      inherit zen-browser noctalia;
+	      inputs = { inherit zen-browser noctalia; };
+	    };
 
 	    # Optionally, use home-manager.extraSpecialArgs to pass
             # arguments to home.nix
