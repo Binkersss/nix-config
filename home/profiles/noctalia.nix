@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }:
 {
-  home-manager.users.drfoobar = {
+  home-manager.users.binker = {
     # import the home manager module
     imports = [
       noctalia.homeModules.default
