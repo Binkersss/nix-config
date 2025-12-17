@@ -15,10 +15,15 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    { self, nixpkgs, home-manager, zen-browser, noctalia, ... }:
+    { self, nixpkgs, home-manager, zen-browser, noctalia, niri, ... }:
     {
       nixosConfigurations.lumen-01 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -58,7 +63,7 @@
             home-manager.useUserPackages = true;
             home-manager.users.binker = ./home/profiles/binker.nix;
             home-manager.extraSpecialArgs = { 
-	      inherit zen-browser noctalia;
+	      inherit zen-browser noctalia niri;
 	    };
 
 	    # Optionally, use home-manager.extraSpecialArgs to pass

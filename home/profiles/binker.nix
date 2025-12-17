@@ -6,6 +6,7 @@
     ../programs/packages
     ./desktop.nix
     ./noctalia.nix
+    ./niri.nix
   ];
 
   home.username = "binker";
