@@ -75,7 +75,7 @@
 
     # Icon fonts
     font-awesome
-    material-design-icons-font
+    material-design-icons
     powerline-fonts
 
     # Nerd Fonts subset (FiraCode, JetBrains Mono, Hack)
