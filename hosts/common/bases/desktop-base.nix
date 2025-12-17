@@ -65,8 +65,8 @@
     merriweather
 
     # Icon fonts
-    nerd-fonts-fira-code
-    nerd-fonts-jetbrains-mono
+    nerdFonts.firaCode
+    nerdFonts.jetbrainsMono
     font-awesome
     material-design-icons-font
     powerline-fonts
@@ -95,12 +95,14 @@
 
   fonts.fonts = with pkgs; [
     fira-code
-    fira-code-nerd-font
     jetbrains-mono
-    jetbrains-mono-nerd-font
     inter
     ibm-plex
     merriweather
+
+    nerdfonts.firaCode
+    nerdfonts.jetBrainsMono
+
     font-awesome
     material-design-icons-font
     powerline-fonts
