@@ -7,7 +7,7 @@
   programs.niri = {
     enable = true;
 
-    package = pkgs.niri.orverrideAttrs ( old: {
+    package = pkgs.niri.overrideAttrs ( old: {
       doCheck = false;
       doInstallCheck = false;
     });
