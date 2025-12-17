@@ -4,8 +4,8 @@
     # Terminal
     ghostty
     
-    # File manager
-    dolphin
+    File manager
+    kdePackages.dolphin
     kdePackages.qtwayland  # Required for Dolphin on Wayland
     
     # XWayland support for niri
