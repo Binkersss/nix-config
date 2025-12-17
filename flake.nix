@@ -52,8 +52,6 @@
           ./hosts/common/bases/desktop-base.nix
           ./hosts/common/users/binker.nix
 
-	  ./home/profiles/noctalia.nix
-
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -61,7 +59,6 @@
             home-manager.users.binker = ./home/profiles/binker.nix;
             home-manager.extraSpecialArgs = { 
 	      inherit zen-browser noctalia;
-	      inputs = { inherit zen-browser noctalia; };
 	    };
 
 	    # Optionally, use home-manager.extraSpecialArgs to pass
