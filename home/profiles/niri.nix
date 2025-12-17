@@ -76,7 +76,7 @@
       window-rules = [
         {
           matches = [
-	    { is focused = false; }
+	    { is-focused = false; }
 	  ];
 	  opacity = 0.85;
         }
