@@ -47,7 +47,6 @@
 
 	focus-ring = {
 	  width = 4;
-	  color = "#7fc8ff";
 	};
       };
 
