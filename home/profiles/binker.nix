@@ -15,7 +15,7 @@
     # Add keys automatically
     extraConfig = ''
       AddKeysToAgent yes
-      IdentityFile ~/.ssh/id_ed25519_lab_github
+      IdentityFile ~/.ssh/id_ed25519_github
     '';
   };
   services.ssh-agent.enable = true;
@@ -25,8 +25,9 @@
     settings = {
       user = {
       	name = "Nathaniel Chappelle";
-	      email = "nathaniel@chappelle.dev";
+	email = "nathaniel@chappelle.dev";
       };
+      init.defaultBranch = "main";
     };
   };
 
