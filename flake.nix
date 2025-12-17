@@ -52,6 +52,8 @@
           ./hosts/common/bases/desktop-base.nix
           ./hosts/common/users/binker.nix
 
+	  ./home/profiles/noctalia.nix
+
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
