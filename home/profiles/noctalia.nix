@@ -26,17 +26,16 @@
               {
                 icon = "rocket";
                 id = "CustomButton";
-                leftClickExec = "qs -c noctalia-shell ipc call launcher toggle";
+                leftClickExec = "fuzzel";
               }
               {
                 id = "Clock";
                 usePrimaryColor = false;
+		formatHorizontal: "HH:mm dd.MM";
+		formatVertical: "HH mm - dd MM";
               }
               {
                 id = "SystemMonitor";
-              }
-              {
-                id = "ActiveWindow";
               }
               {
                 id = "MediaMini";
@@ -106,10 +105,10 @@
           settingsPanelMode = "attached";
         };
         location = {
-          name = "Tokyo";
+          name = "Corvallis";
           weatherEnabled = true;
           weatherShowEffects = true;
-          useFahrenheit = false;
+          useFahrenheit = true;
           use12hourFormat = false;
           showWeekNumberInCalendar = false;
           showCalendarEvents = true;
@@ -270,18 +269,7 @@
           criticalColor = "";
         };
         dock = {
-          enabled = true;
-          displayMode = "auto_hide";
-          backgroundOpacity = 1;
-          floatingRatio = 1;
-          size = 1;
-          onlySameOutput = true;
-          monitors = [ ];
-          pinnedApps = [ ];
-          colorizeIcons = false;
-          pinnedStatic = false;
-          inactiveIndicators = false;
-          deadOpacity = 0.6;
+          enabled = false;
         };
         network = {
           wifiEnabled = true;
@@ -370,38 +358,20 @@
           enableDdcSupport = false;
         };
         colorSchemes = {
-          useWallpaperColors = false;
-          predefinedScheme = "Noctalia (default)";
+          useWallpaperColors = true;
+          predefinedScheme = "Ayu";
           darkMode = true;
           schedulingMode = "off";
-          manualSunrise = "06:30";
-          manualSunset = "18:30";
-          matugenSchemeType = "scheme-fruit-salad";
+          matugenSchemeType = "scheme-content";
           generateTemplatesForPredefined = true;
         };
         templates = {
-          gtk = false;
-          qt = false;
-          kcolorscheme = false;
-          alacritty = false;
-          kitty = false;
+          gtk = true;
+          qt = true;
           ghostty = false;
-          foot = false;
-          wezterm = false;
-          fuzzel = false;
-          discord = false;
-          pywalfox = false;
-          vicinae = false;
-          walker = false;
-          code = false;
-          spicetify = false;
-          telegram = false;
-          cava = false;
-          yazi = false;
-          emacs = false;
-          niri = false;
-          zed = false;
-          enableUserTemplates = false;
+          fuzzel = true;
+          cava = true;
+          niri = true;
         };
         nightLight = {
           enabled = false;
