@@ -60,7 +60,7 @@
     # Text fonts
     fira-code
     jetbrains-mono
-    monoisome
+    hack
     inter
     ibm-plex
     merriweather
@@ -68,7 +68,7 @@
     # Icon fonts
     nerd-fonts-fira-code
     nerd-fonts-jetbrains-mono
-    nerd-fonts-monoisome
+    nerd-fonts-hack
     font-awesome
     material-design-icons-font
     powerline-fonts
@@ -80,7 +80,7 @@
     monospace = [
       "Fira Code Nerd Font"
       "JetBrains Mono Nerd Font"
-      "Monoisome Nerd Font"
+      "Hack Nerd Font"
     ];
     sansSerif = [
       "Inter"
@@ -101,8 +101,8 @@
     fira-code-nerd-font
     jetbrains-mono
     jetbrains-mono-nerd-font
-    monoisome
-    monoisome-nerd-font
+    hack
+    nerd-fonts-hack
     inter
     ibm-plex
     merriweather
