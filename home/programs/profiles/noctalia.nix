@@ -365,7 +365,7 @@
         predefinedScheme = "Ayu";
         darkMode = true;
         schedulingMode = "off";
-        matugenSchemeType = "scheme-content";
+        matugenSchemeType = "scheme-monochrome";
         generateTemplatesForPredefined = true;
       };
       templates = {
