@@ -82,6 +82,7 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+  programs.dconf.enable = true;
 
   # List services that you want to enable:
 
