@@ -77,8 +77,8 @@
       zstyle ':vcs_info:git:*' formats ' %F{cyan}%f %F{magenta}%b%f %u%c'
       zstyle ':vcs_info:git:*' actionformats ' %F{cyan}%f %F{magenta}%b%f %F{red}%a%f %u%c'
 
-      # Main prompt with current directory and git info
-      PROMPT='%F{blue}%~%f$vcs_info_msg_0_ %F{green}❯%f '
+      # Main prompt with OS icon, directory name only, and git info
+      PROMPT='%F{cyan}%f %F{blue}%1~%f$vcs_info_msg_0_ %F{green}❯%f '
 
       # Transient prompt implementation
       zle-line-init() {
@@ -100,8 +100,7 @@
       # Before command execution, simplify previous prompts
       add-zsh-hook preexec _transient_prompt
       function _transient_prompt() {
-        print -rn -- $'\e[2K\r%F{green}❯%f '
-        print -rn -- $terminfo[el]
+        print -rn -- "\r\033[K%F{green}❯%f "
       }
     '';
 
