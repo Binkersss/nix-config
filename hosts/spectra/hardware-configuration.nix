@@ -46,14 +46,14 @@
 
     open = true;
 
-    # prime = {
-    #   offload = {
-    #     enable = true;
-    #     enableOffloadCmd = true; # Lets you use `nvidia-offload %command%` in steam
-    #   };
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true; # Lets you use `nvidia-offload %command%` in steam
+      };
 
-    #   intelBusId = "PCI:00:02:0";
-    #   nvidiaBusId = "PCI:??:??:?";
-    # };
+      intelBusId = "PCI:00:02:0";
+      nvidiaBusId = "PCI:01:00:0";
+    };
   };
 }
