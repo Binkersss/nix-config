@@ -21,6 +21,7 @@
     vscode-langservers-extracted
     zls
     marksman
+    markdownlint-cli
 
     # Formatters
     stylua
