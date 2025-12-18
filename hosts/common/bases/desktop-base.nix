@@ -56,6 +56,7 @@
     tmux
     zsh
     fontconfig
+    i3
   ];
 
   fonts.fontconfig.enable = true;

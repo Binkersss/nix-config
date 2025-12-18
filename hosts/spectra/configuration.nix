@@ -54,6 +54,12 @@
 
   services.xserver.videoDrivers = ["nvidia"];
 
+  services.xserver = {
+    enable = true;
+    displayManager.startx.enable = true;
+    windowManager.i3.enable = true;
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.binker = {
     isNormalUser = true;
