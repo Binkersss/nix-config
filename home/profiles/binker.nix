@@ -60,6 +60,31 @@
       f = "pay-respects";
     };
     history.size = 10000;
+
+    initExtra = ''
+      # Starship transient prompt
+      function set_win_title(){
+        echo -ne "\033]0; $(basename "$PWD") \007"
+      }
+      starship_precmd_user_func="set_win_title"
+
+      # Enable transient prompt
+      function zle-line-init() {
+        emulate -L zsh
+        [[ $CONTEXT == start ]] || return 0
+
+        while true; do
+          zle .reset-prompt
+          zle -R
+          break
+        done
+      }
+      zle -N zle-line-init
+
+      function transient-prompt() {
+        echo -n "\e[1;32m❯\e[0m "
+      }
+    '';
   };
 
   programs.starship = {
@@ -67,13 +92,58 @@
     settings = {
       add_newline = false;
 
-      format = " $all";
+      format = "(bol cyan) $directory$git_branch$git_status$character";
       right_format = "$time";
+
+      continuation_prompt = "";
+
+      directory = {
+        format = "[ $path](bold blue)";
+        truncation_length = 1;
+        truncate_to_repo = false;
+        fish_style_pwd_dir_length = 0;
+        read_only = " 󰌾";
+        style = "blue";
+      };
+
+      # Git branch with nerd font icon
+      git_branch = {
+        format = "[ $branch](bold magenta)";
+        symbol = " ";
+        style = "bright-black";
+      };
+
+      # Git status with nerd font icons
+      git_status = {
+        format = "([$all_status$ahead_behind](bold yellow))";
+        style = "cyan";
+        staged = "";
+        modified = "";
+        untracked = "";
+        deleted = "";
+        renamed = "";
+        conflicted = "";
+        ahead = "⇡$count";
+        behind = "⇣$count";
+        diverged = "⇕⇡$ahead_count⇣$behind_count";
+        stashed = "≡";
+      };
+
+      # Git state
+      git_state = {
+        format = "([$state( $progress_current/$progress_total)]($style)) ";
+        style = "bright-black";
+      };
 
       time = {
         disabled = false;
-        format = "at  [$time](bold dimmed white)";
+        format = " [$time](bold dimmed white)";
         time_format = "%T";
+      };
+
+      cmd_duration = {
+        format = "[$duration]($style) ";
+        style = "yellow";
       };
 
       character = {
