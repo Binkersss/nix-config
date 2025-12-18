@@ -22,7 +22,6 @@
 
     # Formatters
     stylua
-    tree-sitter
 
     # JS FUCKING SUCKK
     bun 
