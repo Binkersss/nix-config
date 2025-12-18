@@ -69,29 +69,48 @@
       precmd_functions+=( precmd_vcs_info )
       setopt prompt_subst
 
-      # Git status configuration
+      # Git status configuration with nerd font icons
       zstyle ':vcs_info:*' enable git
       zstyle ':vcs_info:*' check-for-changes true
-      zstyle ':vcs_info:*' stagedstr '%F{green}●%f'
-      zstyle ':vcs_info:*' unstagedstr '%F{yellow}●%f'
+      zstyle ':vcs_info:*' stagedstr '%F{green}✚%f'
+      zstyle ':vcs_info:*' unstagedstr '%F{yellow}✱%f'
       zstyle ':vcs_info:git:*' formats ' %F{cyan}%f %F{magenta}%b%f %u%c'
       zstyle ':vcs_info:git:*' actionformats ' %F{cyan}%f %F{magenta}%b%f %F{red}%a%f %u%c'
 
       # Main prompt with current directory and git info
       PROMPT='%F{blue}%~%f$vcs_info_msg_0_ %F{green}❯%f '
 
-      # Transient prompt - replaces previous prompts with minimal version
-      _prompt_transient() {
-        PROMPT='%F{green}❯%f '
-        zle reset-prompt
+      # Transient prompt - show minimal prompt after command completes
+      function zle-line-init() {
+        emulate -L zsh
+        [[ $CONTEXT == start ]] || return 0
+
+        # Redraw prompt as transient after previous command
+        while true; do
+          zle .reset-prompt
+          zle -R
+          break
+        done
+      }
+
+      function set-prompt() {
         PROMPT='%F{blue}%~%f$vcs_info_msg_0_ %F{green}❯%f '
       }
 
-      zle -N _prompt_transient
-      bindkey '^M' _prompt_transient
+      function set-prompt-transient() {
+        PROMPT='%F{green}❯%f '
+      }
 
-      # Right prompt with execution time and exit status
-      RPROMPT='%F{242}%*%f'
+      precmd_functions+=(set-prompt)
+      zle -N zle-line-init
+
+      # Make previous prompts minimal after command execution
+      autoload -Uz add-zsh-hook
+
+      add-zsh-hook preexec _prompt_preexec
+      function _prompt_preexec() {
+        print -rn -- $terminfo[el]
+      }
     '';
   };
 }
