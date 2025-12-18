@@ -974,20 +974,17 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    lazy = false, -- Force load immediately
+    priority = 100, -- Load early
     config = function()
-      -- Debug: print where lazy thinks the plugin is
-      local lazy_config = require 'lazy.core.config'
-      local plugin = lazy_config.plugins['nvim-treesitter']
-      if plugin then
-        print('nvim-treesitter plugin path:', plugin.dir)
-        print('Plugin installed:', vim.fn.isdirectory(plugin.dir) == 1)
-      else
-        print 'nvim-treesitter not found in lazy config!'
+      local plugin_path = vim.fn.stdpath 'data' .. '/lazy/nvim-treesitter'
+      if vim.fn.isdirectory(plugin_path) == 1 then
+        vim.opt.runtimepath:append(plugin_path)
       end
 
       local status_ok, treesitter_configs = pcall(require, 'nvim-treesitter.configs')
       if not status_ok then
-        print 'Failed to load nvim-treesitter.configs'
+        vim.notify('Failed to load nvim-treesitter.configs - try running :TSUpdate', vim.log.levels.ERROR)
         return
       end
 
