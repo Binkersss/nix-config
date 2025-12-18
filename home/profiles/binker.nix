@@ -32,8 +32,8 @@
     };
   };
 
-  home.file.".config/nvim".source = ../../dotfiles/nvim;
-  home.file.".config/tmux".source = ../../dotfiles/tmux;
+  home.file.".config/nvim".source = ./dotfiles/nvim;
+  home.file.".config/tmux".source = ./dotfiles/tmux;
 
   programs.zsh = {
       enable = true;
