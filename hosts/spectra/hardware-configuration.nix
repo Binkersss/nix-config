@@ -32,4 +32,24 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32bit = true;
+  };
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+
+    # prime = {
+    #   offload = {
+    #     enable = true;
+    #     enableOffloadCmd = true; # Lets you use `nvidia-offload %command%` in steam
+    #   };
+
+    #   intelBusId = "PCI:00:02:0";
+    #   nvidiaBusId = "PCI:??:??:?";
+    # };
+  };
 }
