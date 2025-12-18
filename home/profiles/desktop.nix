@@ -2,6 +2,8 @@
 {
   imports = [
     ../programs/packages
+    ../programs/profiles/niri.nix
+    ../programs/profiles/noctalia.nix
   ];
 
   # Wayland session variables

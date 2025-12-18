@@ -5,8 +5,6 @@
     ./base.nix
     ../programs/packages
     ./desktop.nix
-    ./noctalia.nix
-    ./niri.nix
   ];
 
   home.username = "binker";
@@ -33,6 +31,9 @@
       init.defaultBranch = "main";
     };
   };
+
+  home.file.".config/nvim".source = ../../../dotfiles/nvim;
+  home.file.".config/tmux".source = ../../../dotfiles/tmux;
 
   programs.zsh = {
       enable = true;
