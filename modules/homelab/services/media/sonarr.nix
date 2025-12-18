@@ -1,13 +1,15 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.homelab.services.sonarr;
 in {
   options.homelab.services.sonarr = {
     enable = mkEnableOption "Sonarr TV show management";
-    
+
     dataDir = mkOption {
       type = types.path;
       default = "/var/lib/sonarr";

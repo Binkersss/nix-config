@@ -1,8 +1,10 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.homelab.services.deluge;
   ns = config.homelab.services.vpn.wireguard-netns.namespace;
 in {
@@ -49,8 +51,8 @@ in {
         port = cfg.web.port;
       };
     };
-    
-    networking.firewall.allowedTCPPorts = [ cfg.web.port ];
+
+    networking.firewall.allowedTCPPorts = [cfg.web.port];
 
     systemd.tmpfiles.rules = [
       "d ${cfg.downloadLocation} 0775 deluge deluge -"
@@ -58,25 +60,25 @@ in {
 
     # Bind to VPN namespace if enabled
     systemd.services.deluged = mkIf cfg.useVPN {
-      bindsTo = [ "netns@${ns}.service" ];
-      requires = [ "network-online.target" "${ns}.service" ];
-      after = [ "${ns}.service" ];
-      serviceConfig.NetworkNamespacePath = [ "/var/run/netns/${ns}" ];
+      bindsTo = ["netns@${ns}.service"];
+      requires = ["network-online.target" "${ns}.service"];
+      after = ["${ns}.service"];
+      serviceConfig.NetworkNamespacePath = ["/var/run/netns/${ns}"];
     };
 
     systemd.sockets."deluged-proxy" = mkIf cfg.useVPN {
       enable = true;
       description = "Socket for Proxy to Deluge Daemon";
-      listenStreams = [ "58846" ];
-      wantedBy = [ "sockets.target" ];
+      listenStreams = ["58846"];
+      wantedBy = ["sockets.target"];
     };
 
     systemd.services."deluged-proxy" = mkIf cfg.useVPN {
       enable = true;
       description = "Proxy to Deluge Daemon in Network Namespace";
-      requires = [ "deluged.service" "deluged-proxy.socket" ];
-      after = [ "deluged.service" "deluged-proxy.socket" ];
-      unitConfig = { JoinsNamespaceOf = "deluged.service"; };
+      requires = ["deluged.service" "deluged-proxy.socket"];
+      after = ["deluged.service" "deluged-proxy.socket"];
+      unitConfig = {JoinsNamespaceOf = "deluged.service";};
       serviceConfig = {
         User = "deluge";
         Group = "deluge";
@@ -88,15 +90,15 @@ in {
     # Add after the deluged-proxy service:
     systemd.services."deluged-portconfig" = mkIf cfg.useVPN {
       description = "Configure Deluge with forwarded port";
-      after = [ "deluged.service" "${ns}-portforward.service" ];
+      after = ["deluged.service" "${ns}-portforward.service"];
       # requires = [ "deluged.service" ];
-      wantedBy = [ "multi-user.target" ];
-      
+      wantedBy = ["multi-user.target"];
+
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
       };
-      
+
       script = ''
         # Wait for port to be available
         for i in {1..30}; do
@@ -121,22 +123,21 @@ in {
     systemd.sockets."deluge-port-proxy" = mkIf cfg.useVPN {
       enable = true;
       description = "Proxy incoming torrent port to Deluge inside namespace";
-      listenStreams = [ "45137" ]; # or dynamically read /run/protonvpn-port
-      wantedBy = [ "sockets.target" ];
+      listenStreams = ["45137"]; # or dynamically read /run/protonvpn-port
+      wantedBy = ["sockets.target"];
     };
-    
+
     systemd.services."deluge-port-proxy" = mkIf cfg.useVPN {
       enable = true;
       description = "Proxy incoming torrent TCP/UDP port into VPN namespace";
       unitConfig.JoinsNamespaceOf = "deluged.service";
-      after = [ "deluged.service" "deluge-port-proxy.socket" ];
-      requires = [ "deluged.service" "deluge-port-proxy.socket" ];
+      after = ["deluged.service" "deluge-port-proxy.socket"];
+      requires = ["deluged.service" "deluge-port-proxy.socket"];
       serviceConfig = {
         ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd --exit-idle-time=30min 127.0.0.1:45137";
         User = "deluge";
         Group = "deluge";
       };
     };
-
   };
 }

@@ -1,13 +1,15 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.homelab.services.radarr;
 in {
   options.homelab.services.radarr = {
     enable = mkEnableOption "Radarr movie management";
-    
+
     dataDir = mkOption {
       type = types.path;
       default = "/var/lib/radarr";

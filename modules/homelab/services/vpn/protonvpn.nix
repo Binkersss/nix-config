@@ -1,11 +1,12 @@
-{ config, pkgs, lib, ... }:
-
-with lib;
-
-let
-  cfg = config.homelab.services.vpn.protonvpn;
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.homelab.services.vpn.protonvpn;
+in {
   options.homelab.services.vpn.protonvpn = {
     enable = mkEnableOption "ProtonVPN in network namespace";
 
@@ -39,74 +40,77 @@ in
     # creating network namespace
     systemd.services."netns@" = {
       description = "%I network namespace";
-      before = [ "network.target" ];
+      before = ["network.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
         ExecStart = "${pkgs.iproute2}/bin/ip netns add %I";
-        ExecStop = with pkgs; writers.writeBash "netns-stop" ''
-          ${iproute2}/bin/ip netns del %I 2>/dev/null || true
-          rm -f /var/run/netns/%I
-        '';
+        ExecStop = with pkgs;
+          writers.writeBash "netns-stop" ''
+            ${iproute2}/bin/ip netns del %I 2>/dev/null || true
+            rm -f /var/run/netns/%I
+          '';
       };
     };
 
     # setting up wireguard interface within network namespace
     systemd.services.protonvpn-wg = {
       description = "ProtonVPN WireGuard interface";
-      wantedBy = [ "multi-user.target" ];
-      bindsTo = [ "netns@${cfg.namespace}.service" ];
-      requires = [ "network-online.target" ];
-      after = [ "netns@${cfg.namespace}.service" "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      bindsTo = ["netns@${cfg.namespace}.service"];
+      requires = ["network-online.target"];
+      after = ["netns@${cfg.namespace}.service" "network-online.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart = with pkgs; writers.writeBash "protonvpn-wg-up" ''
-          set -e
-          
-          # Ensure namespace exists
-          if ! ${iproute2}/bin/ip netns list | ${gnugrep}/bin/grep -q "^${cfg.namespace}"; then
-            ${iproute2}/bin/ip netns add ${cfg.namespace}
-          fi
-          
-          # Create DNS configuration directory for namespace
-          mkdir -p /etc/netns/${cfg.namespace}
-          echo "nameserver 10.2.0.1" > /etc/netns/${cfg.namespace}/resolv.conf
-          
-          # Clean up any existing interface
-          ${iproute2}/bin/ip link del wg0 2>/dev/null || true
-          ${iproute2}/bin/ip -n ${cfg.namespace} link del wg0 2>/dev/null || true
-          
-          # Create filtered config (remove Address and DNS lines as wg setconf doesn't accept them)
-          ${gnugrep}/bin/grep -vE '^(Address|DNS)' ${cfg.configFile} > /run/protonvpn-wg.conf
-          chmod 600 /run/protonvpn-wg.conf
-          
-          ${iproute2}/bin/ip link add wg0 type wireguard
-          ${iproute2}/bin/ip link set wg0 netns ${cfg.namespace}
-          ${iproute2}/bin/ip -n ${cfg.namespace} address add ${cfg.vpnAddress} dev wg0
-          ${optionalString (cfg.vpnAddressIPv6 != null) ''
-          ${iproute2}/bin/ip -n ${cfg.namespace} -6 address add ${cfg.vpnAddressIPv6} dev wg0
-          ''}
-          ${iproute2}/bin/ip netns exec ${cfg.namespace} \
-            ${wireguard-tools}/bin/wg setconf wg0 /run/protonvpn-wg.conf
-          ${iproute2}/bin/ip -n ${cfg.namespace} link set wg0 up
-          ${iproute2}/bin/ip -n ${cfg.namespace} link set lo up
-          ${iproute2}/bin/ip -n ${cfg.namespace} route add default dev wg0
-          ${optionalString (cfg.vpnAddressIPv6 != null) ''
-          ${iproute2}/bin/ip -n ${cfg.namespace} -6 route add default dev wg0
-          ''}
-          
-          # Clean up filtered config
-          rm -f /run/protonvpn-wg.conf
-        '';
-        ExecStop = with pkgs; writers.writeBash "protonvpn-wg-down" ''
-          ${iproute2}/bin/ip -n ${cfg.namespace} route del default dev wg0 2>/dev/null || true
-          ${optionalString (cfg.vpnAddressIPv6 != null) ''
-          ${iproute2}/bin/ip -n ${cfg.namespace} -6 route del default dev wg0 2>/dev/null || true
-          ''}
-          ${iproute2}/bin/ip -n ${cfg.namespace} link del wg0 2>/dev/null || true
-          rm -f /run/protonvpn-wg.conf
-        '';
+        ExecStart = with pkgs;
+          writers.writeBash "protonvpn-wg-up" ''
+            set -e
+
+            # Ensure namespace exists
+            if ! ${iproute2}/bin/ip netns list | ${gnugrep}/bin/grep -q "^${cfg.namespace}"; then
+              ${iproute2}/bin/ip netns add ${cfg.namespace}
+            fi
+
+            # Create DNS configuration directory for namespace
+            mkdir -p /etc/netns/${cfg.namespace}
+            echo "nameserver 10.2.0.1" > /etc/netns/${cfg.namespace}/resolv.conf
+
+            # Clean up any existing interface
+            ${iproute2}/bin/ip link del wg0 2>/dev/null || true
+            ${iproute2}/bin/ip -n ${cfg.namespace} link del wg0 2>/dev/null || true
+
+            # Create filtered config (remove Address and DNS lines as wg setconf doesn't accept them)
+            ${gnugrep}/bin/grep -vE '^(Address|DNS)' ${cfg.configFile} > /run/protonvpn-wg.conf
+            chmod 600 /run/protonvpn-wg.conf
+
+            ${iproute2}/bin/ip link add wg0 type wireguard
+            ${iproute2}/bin/ip link set wg0 netns ${cfg.namespace}
+            ${iproute2}/bin/ip -n ${cfg.namespace} address add ${cfg.vpnAddress} dev wg0
+            ${optionalString (cfg.vpnAddressIPv6 != null) ''
+              ${iproute2}/bin/ip -n ${cfg.namespace} -6 address add ${cfg.vpnAddressIPv6} dev wg0
+            ''}
+            ${iproute2}/bin/ip netns exec ${cfg.namespace} \
+              ${wireguard-tools}/bin/wg setconf wg0 /run/protonvpn-wg.conf
+            ${iproute2}/bin/ip -n ${cfg.namespace} link set wg0 up
+            ${iproute2}/bin/ip -n ${cfg.namespace} link set lo up
+            ${iproute2}/bin/ip -n ${cfg.namespace} route add default dev wg0
+            ${optionalString (cfg.vpnAddressIPv6 != null) ''
+              ${iproute2}/bin/ip -n ${cfg.namespace} -6 route add default dev wg0
+            ''}
+
+            # Clean up filtered config
+            rm -f /run/protonvpn-wg.conf
+          '';
+        ExecStop = with pkgs;
+          writers.writeBash "protonvpn-wg-down" ''
+            ${iproute2}/bin/ip -n ${cfg.namespace} route del default dev wg0 2>/dev/null || true
+            ${optionalString (cfg.vpnAddressIPv6 != null) ''
+              ${iproute2}/bin/ip -n ${cfg.namespace} -6 route del default dev wg0 2>/dev/null || true
+            ''}
+            ${iproute2}/bin/ip -n ${cfg.namespace} link del wg0 2>/dev/null || true
+            rm -f /run/protonvpn-wg.conf
+          '';
       };
     };
   };

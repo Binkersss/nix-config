@@ -1,7 +1,8 @@
-{ config, pkgs, ... }:
-
-
-{ 
+{
+  config,
+  pkgs,
+  ...
+}: {
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
@@ -25,12 +26,12 @@
     layout = "us";
     variant = "";
   };
-	
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Enable Flakes and new nix command line tool 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Enable Flakes and new nix command line tool
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   environment.systemPackages = with pkgs; [
     neovim

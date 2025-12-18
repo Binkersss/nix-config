@@ -1,13 +1,15 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     # Language runtimes & compilers
     go
     rustc
     cargo
     clang
-    
+
     # Language Servers
     lua-language-server
     nodePackages.typescript-language-server
@@ -25,26 +27,26 @@
     alejandra
 
     # JS FUCKING SUCKK
-    bun 
+    bun
 
     # Python
     python3
-    
+
     # Build tools
     cmake
     gnumake
     pkg-config
-    
+
     # Version control
     git-lfs
-    gh  # GitHub CLI
-    
+    gh # GitHub CLI
+
     # Container tools
     docker-compose
     kubectl
-    
+
     # Development utilities
     direnv
-    just  # command runner
+    just # command runner
   ];
 }

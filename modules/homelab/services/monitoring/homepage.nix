@@ -1,14 +1,16 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.homelab.services.homepage;
   serverIP = "10.0.0.222";
 in {
   options.homelab.services.homepage = {
     enable = mkEnableOption "Homepage dashboard";
-    allowedHosts = "*"; 
+    allowedHosts = "*";
     port = mkOption {
       type = types.port;
       default = 3000;
@@ -19,14 +21,14 @@ in {
   config = mkIf cfg.enable {
     services.homepage-dashboard = {
       enable = true;
-      
+
       openFirewall = true;
-      
+
       listenPort = cfg.port;
-      
+
       settings = {
         title = "Homelab Dashboard";
-        
+
         layout = [
           {
             Media = {
@@ -42,7 +44,7 @@ in {
           }
         ];
       };
-      
+
       services = [
         {
           Media = [
@@ -102,7 +104,7 @@ in {
           ];
         }
       ];
-      
+
       widgets = [
         {
           resources = {
@@ -118,7 +120,7 @@ in {
           };
         }
       ];
-      
+
       bookmarks = [
         {
           Developer = [

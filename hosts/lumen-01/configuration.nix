@@ -1,14 +1,15 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -54,7 +55,6 @@
     openFirewall = true;
   };
 
-  
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -82,7 +82,7 @@
         "guest account" = "nobody";
         "map to guest" = "bad user";
       };
-      
+
       "media" = {
         "path" = "/mnt/usbnas";
         "browseable" = "yes";
@@ -94,17 +94,17 @@
       };
     };
   };
- 
-  users.groups.nas = { 
+
+  users.groups.nas = {
     gid = 1000;
   };
-  users.users.binker.extraGroups = [ "nas" ];
-  users.users.bazarr.extraGroups = [ "nas" ];
-  users.users.radarr.extraGroups = [ "nas" "deluge" ];
-  users.users.sonarr.extraGroups = [ "nas" "deluge" ];
-  users.users.jellyfin.extraGroups = [ "nas" ];
+  users.users.binker.extraGroups = ["nas"];
+  users.users.bazarr.extraGroups = ["nas"];
+  users.users.radarr.extraGroups = ["nas" "deluge"];
+  users.users.sonarr.extraGroups = ["nas" "deluge"];
+  users.users.jellyfin.extraGroups = ["nas"];
   # users.users.jellyseerr.extraGroups = [ "nas" ];
-  users.users.deluge.extraGroups = [ "nas" ];
+  users.users.deluge.extraGroups = ["nas"];
 
   systemd.tmpfiles.rules = [
     "d /mnt/usbnas 0775 root nas -"
@@ -125,8 +125,6 @@
     "d /mnt/usbnas/media/movies 0775 jellyfin nas -"
     # "d /mnt/usbnas/media/tv 0775 jellyseerr nas -"
     # "d /mnt/usbnas/media/movies 0775 jellyseerr nas -"
-
-
   ];
 
   homelab.services.vpn.wireguard-netns = {
@@ -151,22 +149,21 @@
       enable = true;
     };
 
-    jellyfin = { 
+    jellyfin = {
       enable = true;
     };
-    jellyseerr = { 
+    jellyseerr = {
       enable = true;
     };
-
 
     sonarr = {
-     enable = true;
+      enable = true;
     };
 
     prowlarr = {
-     enable = true;
+      enable = true;
     };
-    
+
     bazarr = {
       enable = true;
     };

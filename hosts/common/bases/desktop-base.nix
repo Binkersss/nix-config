@@ -1,7 +1,8 @@
-{ config, pkgs, ... }:
-
-
-{ 
+{
+  config,
+  pkgs,
+  ...
+}: {
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
@@ -20,17 +21,16 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-
-    # Enable greetd with tuigreet as display manager
-    services.greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
-          user = "greeter";
-        };
+  # Enable greetd with tuigreet as display manager
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
+        user = "greeter";
       };
     };
+  };
 
   # XWayland support
   programs.xwayland.enable = true;
@@ -40,12 +40,12 @@
     layout = "us";
     variant = "";
   };
-	
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Enable Flakes and new nix command line tool 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Enable Flakes and new nix command line tool
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   environment.systemPackages = with pkgs; [
     neovim
@@ -106,7 +106,7 @@
       "DejaVu Serif"
     ];
   };
-  
+
   programs.zsh.enable = true;
 
   environment.sessionVariables = {
