@@ -67,9 +67,14 @@
     settings = {
       add_newline = false;
 
-      continuation_prompt = "▶▶ ";
-      format = "$character";
-      right_format = "$all ";
+      format = "$all$character";
+      right_format = "$time";
+
+      time = {
+        disabled = false;
+        format = "at [$time](bold dimmed white)";
+        time_format = "%T";
+      };
 
       character = {
         success_symbol = "[❯](bold green)";
