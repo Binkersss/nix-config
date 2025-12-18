@@ -56,6 +56,7 @@
     tmux
     zsh
     fontconfig
+    xdg-utils
     i3 # for x11 troubleshooting
     dmenu
   ];

@@ -19,8 +19,9 @@
       # Locker
       swaylock
 
-      kdePackages.dolphin
-      kdePackages.qtwayland # Required for Dolphin on Wayland
+      # kdePackages.dolphin
+      # kdePackages.qtwayland # Required for Dolphin on Wayland
+      ranger
 
       # XWayland support for niri
       xwayland-satellite

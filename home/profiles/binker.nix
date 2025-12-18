@@ -49,6 +49,24 @@
     name = "ghostty-config";
   };
 
+  home.file.".local/share/applications/ranger.desktop".text = ''
+    [Desktop Entry]
+    Type=Application
+    Name=ranger
+    Exec=ghostty -e ranger %U
+    Terminal=false
+    Categories=System;FileTools;FileManager;
+    MimeType=inode/directory;
+  '';
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "inode/directory" = "ranger.desktop";
+      "x-scheme-handler/file" = "ranger.desktop";
+    };
+  };
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
