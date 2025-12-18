@@ -16,7 +16,7 @@
     gopls
     clang-tools
     nil
-    html-lsp
+    vscode-langservers-extracted
     css-lsp
     zls
     marksman
