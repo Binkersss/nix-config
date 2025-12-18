@@ -56,7 +56,8 @@
     tmux
     zsh
     fontconfig
-    i3
+    i3 # for x11 troubleshooting
+    dmenu
   ];
 
   fonts.fontconfig.enable = true;
