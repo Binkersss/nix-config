@@ -977,17 +977,18 @@ require('lazy').setup({
     lazy = false,
     priority = 100,
     init = function()
-      -- Add to runtimepath BEFORE the plugin tries to load
+      -- Add to both runtimepath and package.path
       local plugin_path = vim.fn.stdpath 'data' .. '/lazy/nvim-treesitter'
       vim.opt.runtimepath:prepend(plugin_path)
+
+      -- Add Lua paths
+      package.path = package.path .. ';' .. plugin_path .. '/lua/?.lua'
+      package.path = package.path .. ';' .. plugin_path .. '/lua/?/init.lua'
     end,
     config = function()
       local status_ok, treesitter_configs = pcall(require, 'nvim-treesitter.configs')
       if not status_ok then
         vim.notify('Failed to load nvim-treesitter.configs', vim.log.levels.ERROR)
-        -- Try to debug the package path
-        print('package.path:', package.path)
-        print('runtimepath:', vim.o.runtimepath)
         return
       end
 
