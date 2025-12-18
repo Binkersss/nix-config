@@ -92,7 +92,7 @@
 
   home.file.".config/xdg-desktop-portal-termfilechooser/config".text = ''
     [filechooser]
-    cmd=ghostty -e ranger --choosefile
+    cmd=ghostty -e sh -c 'ranger --choosefile="$1"' sh
   '';
 
   xdg.mimeApps = {
