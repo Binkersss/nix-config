@@ -17,7 +17,7 @@
         density = "default";
         transparent = false;
         showOutline = false;
-        showCapsule = true;
+        showCapsule = false;
         capsuleOpacity = 1;
         floating = false;
         marginVertical = 0.25;
