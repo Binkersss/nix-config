@@ -115,7 +115,7 @@
 
       # Git status with nerd font icons
       git_status = {
-        format = "([$all_status$ahead_behind](bold yellow))";
+        format = "( [$all_status$ahead_behind](bold yellow))";
         style = "cyan";
         staged = "";
         modified = "";
@@ -131,7 +131,7 @@
 
       # Git state
       git_state = {
-        format = "([$state( $progress_current/$progress_total)]($style)) ";
+        format = "( [$state( $progress_current/$progress_total)]($style)) ";
         style = "bright-black";
       };
 
