@@ -67,7 +67,7 @@
     settings = {
       add_newline = false;
 
-      format = " $all$character";
+      format = " $all";
       right_format = "$time";
 
       time = {
