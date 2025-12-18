@@ -974,6 +974,8 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    event = { 'BufReadPost', 'BufNewFile' },
+    cmd = { 'TSUpdate', 'TSInstall' },
     config = function()
       require('nvim-treesitter.configs').setup {
         ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
