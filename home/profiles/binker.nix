@@ -89,11 +89,12 @@
     ext docx?|xlsx?|pptx? = libreoffice -- "$@"
     ext odt|ods|odp = libreoffice -- "$@"
   '';
-  
+
   home.file.".config/xdg-desktop-portal-termfilechooser/config".text = ''
     [filechooser]
     cmd=ghostty -e ranger --choosefile
-  ''
+  '';
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
