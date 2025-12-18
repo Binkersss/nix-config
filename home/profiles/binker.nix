@@ -67,12 +67,12 @@
     settings = {
       add_newline = false;
 
-      format = "$all$character";
+      format = " $all$character";
       right_format = "$time";
 
       time = {
         disabled = false;
-        format = "at [$time](bold dimmed white)";
+        format = "at  [$time](bold dimmed white)";
         time_format = "%T";
       };
 
