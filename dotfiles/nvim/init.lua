@@ -974,12 +974,25 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    event = { 'BufReadPost', 'BufNewFile' },
-    cmd = { 'TSUpdate', 'TSInstall' },
     config = function()
-      require('nvim-treesitter.configs').setup {
+      -- Debug: print where lazy thinks the plugin is
+      local lazy_config = require 'lazy.core.config'
+      local plugin = lazy_config.plugins['nvim-treesitter']
+      if plugin then
+        print('nvim-treesitter plugin path:', plugin.dir)
+        print('Plugin installed:', vim.fn.isdirectory(plugin.dir) == 1)
+      else
+        print 'nvim-treesitter not found in lazy config!'
+      end
+
+      local status_ok, treesitter_configs = pcall(require, 'nvim-treesitter.configs')
+      if not status_ok then
+        print 'Failed to load nvim-treesitter.configs'
+        return
+      end
+
+      treesitter_configs.setup {
         ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-        -- Set to false since NixOS will handle installation
         auto_install = true,
         highlight = {
           enable = true,
@@ -998,9 +1011,9 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
