@@ -62,7 +62,7 @@
     history.size = 10000;
   };
 
-  program.starship = {
+  programs.starship = {
     enable = true;
     settings = {
       add_newline = false;
