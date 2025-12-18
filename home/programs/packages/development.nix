@@ -3,7 +3,6 @@
 {
   home.packages = with pkgs; [
     # Language runtimes & compilers
-    gcc
     go
     rustc
     cargo
