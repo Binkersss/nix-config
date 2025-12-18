@@ -60,6 +60,13 @@
     windowManager.i3.enable = true;
   };
 
+  services.dbus.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    config.common.default = "gtk";
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.binker = {
     isNormalUser = true;
