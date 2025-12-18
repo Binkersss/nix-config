@@ -99,7 +99,7 @@
       };
       ui = {
         fontDefault = "Inter";
-        fontFixed = "Fira Code Nerd Font";
+        fontFixed = "FiraCode Nerd Font";
         fontDefaultScale = 1;
         fontFixedScale = 1;
         tooltipsEnabled = true;
