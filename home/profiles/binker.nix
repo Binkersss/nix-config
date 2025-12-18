@@ -67,8 +67,9 @@
     settings = {
       add_newline = false;
 
-      continuation_prompt = "";
-      right_format = "$time";
+      continuation_prompt = "▶▶ ";
+      format = "$character";
+      right_format = "$all";
 
       character = {
         success_symbol = "[❯](bold green)";
