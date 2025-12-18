@@ -7,7 +7,7 @@
     niri.homeModules.niri
   ];
 
-  home.PointerCursor = {
+  home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
     packages = "Bibata-Modern-Classic";
