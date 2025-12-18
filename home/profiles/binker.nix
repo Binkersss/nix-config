@@ -78,7 +78,7 @@
       zstyle ':vcs_info:git:*' actionformats ' %F{cyan}%f %F{magenta}%b%f %F{red}%a%f %u%c'
 
       # Main prompt with OS icon, directory name only, and git info
-      PROMPT='%F{cyan}%f\uf313 %F{blue}%1~%f$vcs_info_msg_0_ %F{green}❯%f '
+      PROMPT='%F{cyan}% %F{blue}%1~%f$vcs_info_msg_0_ %F{green}❯%f '
 
       # Transient prompt implementation
       zle-line-init() {
