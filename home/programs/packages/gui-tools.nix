@@ -31,7 +31,7 @@
 
       # Optional but useful:
       ffmpegthumbnailer # Video thumbnails in ranger
-      poppler_utils # PDF thumbnails/preview
+      poppler-utils # PDF thumbnails/preview
       highlight # Syntax highlighting for previews
       mediainfo # Media file info
 
