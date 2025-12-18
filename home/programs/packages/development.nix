@@ -22,6 +22,7 @@
 
     # Formatters
     stylua
+    alejandra
 
     # JS FUCKING SUCKK
     bun 
