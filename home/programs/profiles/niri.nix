@@ -21,6 +21,14 @@
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Classic";
     };
+
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
   };
 
   programs.niri = {
