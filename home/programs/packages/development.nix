@@ -3,11 +3,20 @@
 {
   home.packages = with pkgs; [
     # Language runtimes & compilers
-    go
+    gopls
     rustc
     cargo
-    clang
+    clang-tools
     
+    # Language Servers
+    lua-language-server
+    nodePackages.typescript-language-server
+    pyright
+    svelte-language-server
+
+    # Formatters
+    stylua
+
     # JS FUCKING SUCKK
     bun 
 
