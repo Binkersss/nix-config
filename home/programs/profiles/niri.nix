@@ -102,7 +102,7 @@
         {
           matches = [
             {
-              app-id = "^ghostty";
+              app-id = "ghostty";
               is-focused = false;
             }
           ];
@@ -111,7 +111,7 @@
         {
           matches = [
             {
-              app-id = "^ghostty";
+              app-id = "ghostty";
               is-focused = true;
             }
           ];
