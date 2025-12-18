@@ -1,6 +1,5 @@
-theme = Black Metal 
+theme = Black Metal (Burzum)
 shell-integration = zsh
 mouse-hide-while-typing = true
 scrollback-limit = 10000000
 
-background = #000000

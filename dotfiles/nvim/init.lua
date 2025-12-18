@@ -926,7 +926,7 @@ require('lazy').setup({
     priority = 1000,
     config = function()
       require('black-metal').setup {
-        -- optional configuration here
+        theme = 'burzum',
       }
       require('black-metal').load()
     end,
