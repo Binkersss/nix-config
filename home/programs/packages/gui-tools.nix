@@ -12,6 +12,10 @@
       # Launcher
       fuzzel
 
+      # Citations
+      zotero
+      sqlite # for zotero nvim plugin
+
       # Locker
       swaylock
 
