@@ -64,7 +64,10 @@
   xdg.portal = {
     enable = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
-    config.common.default = "gtk";
+    config.common = {
+      default = "gtk";
+      "org.freedesktop.impl.portal.FileChooser" = "gtk";
+    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
