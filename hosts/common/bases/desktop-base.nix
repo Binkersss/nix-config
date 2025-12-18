@@ -55,7 +55,8 @@
     htop
     tmux
     zsh
-
+    zotero
+    sqlite3 # for zotero nvim plugin
     fontconfig
   ];
 
