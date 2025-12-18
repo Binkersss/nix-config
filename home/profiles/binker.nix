@@ -69,7 +69,7 @@
 
       continuation_prompt = "▶▶ ";
       format = "$character";
-      right_format = "$all \\uf313";
+      right_format = "$all ";
 
       character = {
         success_symbol = "[❯](bold green)";
