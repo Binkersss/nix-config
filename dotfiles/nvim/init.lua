@@ -921,17 +921,17 @@ require('lazy').setup({
   --   comments = { italic = false }, -- Disable italics in comments
   --  },
   --}
-  -- 'rose-pine/neovim',
-  -- priority = 1000,
-  -- name = 'rose-pine',
-  -- config = function()
+  'black-metal/neovim',
+    priority = 1000,
+    name = 'black-metal',
+    config = function()
   --   -- Load the colorscheme here.
   --   -- Like many other themes, this one has different styles, and you could load
   --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  --   vim.cmd.colorscheme 'rose-pine'
-  --   vim.api.nvim_set_hl(0, 'Normal', { bg = '#000000' })
-  -- end,
-  -- },
+     vim.cmd.colorscheme 'black-metal'
+     vim.api.nvim_set_hl(0, 'Normal', { bg = '#000000' })
+  end,
+  },
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
