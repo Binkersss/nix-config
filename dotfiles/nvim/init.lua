@@ -974,25 +974,8 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    lazy = false,
-    priority = 100,
-    init = function()
-      -- Add to both runtimepath and package.path
-      local plugin_path = vim.fn.stdpath 'data' .. '/lazy/nvim-treesitter'
-      vim.opt.runtimepath:prepend(plugin_path)
-
-      -- Add Lua paths
-      package.path = package.path .. ';' .. plugin_path .. '/lua/?.lua'
-      package.path = package.path .. ';' .. plugin_path .. '/lua/?/init.lua'
-    end,
     config = function()
-      local status_ok, treesitter_configs = pcall(require, 'nvim-treesitter.configs')
-      if not status_ok then
-        vim.notify('Failed to load nvim-treesitter.configs', vim.log.levels.ERROR)
-        return
-      end
-
-      treesitter_configs.setup {
+      require('nvim-treesitter.configs').setup {
         ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
         auto_install = true,
         highlight = {
