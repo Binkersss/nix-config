@@ -17,7 +17,6 @@
     clang-tools
     nil
     vscode-langservers-extracted
-    css-lsp
     zls
     marksman
 
