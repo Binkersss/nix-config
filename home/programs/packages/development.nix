@@ -3,16 +3,23 @@
 {
   home.packages = with pkgs; [
     # Language runtimes & compilers
-    gopls
+    go
     rustc
     cargo
-    clang-tools
+    clang
     
     # Language Servers
     lua-language-server
     nodePackages.typescript-language-server
     pyright
     svelte-language-server
+    gopls
+    clang-tools
+    nil
+    html-lsp
+    css-lsp
+    zls
+    marksman
 
     # Formatters
     stylua
