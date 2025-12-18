@@ -2,5 +2,5 @@ theme = Black Metal (Burzum)
 shell-integration = zsh
 mouse-hide-while-typing = true
 scrollback-limit = 10000000
-font-family = Hack Nerd Font 
+font-family = Hack Nerd Font Light
 
