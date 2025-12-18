@@ -32,8 +32,15 @@
     };
   };
 
-  home.file.".config/nvim".source = ../../dotfiles/nvim;
-  home.file.".config/tmux".source = ../../dotfiles/tmux;
+  home.file.".config/nvim".source = builtins.path {
+    path = ../../dotfiles/nvim;
+    name = "nvim-config";
+  };
+
+  home.file.".config/tmux".source = builtins.path {
+    path = ../../dotfiles/tmux;
+    name = "tmux-config";
+  };
 
   programs.zsh = {
       enable = true;
