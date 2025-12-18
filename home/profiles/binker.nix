@@ -59,6 +59,37 @@
     MimeType=inode/directory;
   '';
 
+  home.file.".config/ranger/rc.conf".text = ''
+    set preview_images true
+    set preview_images_method ghostty
+  '';
+
+  home.file.".config/ranger/rifle.conf".text = ''
+    # Text files
+    ext txt|md|org = nvim -- "$@"
+    mime ^text = nvim -- "$@"
+
+    # PDFs
+    ext pdf = zathura -- "$@"
+
+    # Images
+    mime ^image = imv -- "$@"
+
+    # Videos
+    mime ^video = mpv -- "$@"
+
+    # Audio
+    mime ^audio = mpv -- "$@"
+
+    # Archives
+    ext 7z|ace|ar|arc|bz2?|cab|cpio|cpt|deb|dgc|dmg|gz = file-roller -- "$@"
+    ext iso|jar|msi|pkg|rar|shar|tar|tgz|xar|xpi|xz|zip = file-roller -- "$@"
+
+    # Office documents
+    ext docx?|xlsx?|pptx? = libreoffice -- "$@"
+    ext odt|ods|odp = libreoffice -- "$@"
+  '';
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
