@@ -88,7 +88,6 @@
 
   programs.steam.enable = true;
   programs.gamemode.enable = true;
-  programs.lutris.enable = true;
 
   # List services that you want to enable:
 
