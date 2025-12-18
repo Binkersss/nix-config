@@ -44,6 +44,11 @@
     name = "tmux-config";
   };
 
+  home.file.".config/ghostty".source = builtins.path {
+    path = ../../dotfiles/ghostty;
+    name = "ghostty-config";
+  };
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
