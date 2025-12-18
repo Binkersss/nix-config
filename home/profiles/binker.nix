@@ -72,5 +72,5 @@
         error_symbol = "[➜](bold red)";
       };
     };
-  }
+  };
 }
