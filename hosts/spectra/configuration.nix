@@ -88,6 +88,7 @@
 
   programs.steam.enable = true;
   programs.gamemode.enable = true;
+  programs.steam.gamescopeSession.enable = true;
 
   # List services that you want to enable:
 
