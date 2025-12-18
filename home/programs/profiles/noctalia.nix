@@ -153,7 +153,7 @@
       wallpaper = {
         enabled = true;
         overviewEnabled = false;
-        directory = "";
+        directory = "~/Pictures/Wallpapers/";
         monitorDirectories = [];
         enableMultiMonitorDirectories = false;
         recursiveSearch = false;
