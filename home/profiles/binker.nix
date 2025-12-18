@@ -64,6 +64,7 @@
       enable = true;
       plugins = [
         "git"
+        "zsh-transient-prompt"
       ];
       theme = "robbyrussell";
     };
