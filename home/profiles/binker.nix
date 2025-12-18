@@ -60,31 +60,6 @@
       f = "pay-respects";
     };
     history.size = 10000;
-
-    initExtra = ''
-      # Starship transient prompt
-      function set_win_title(){
-        echo -ne "\033]0; $(basename "$PWD") \007"
-      }
-      starship_precmd_user_func="set_win_title"
-
-      # Enable transient prompt
-      function zle-line-init() {
-        emulate -L zsh
-        [[ $CONTEXT == start ]] || return 0
-
-        while true; do
-          zle .reset-prompt
-          zle -R
-          break
-        done
-      }
-      zle -N zle-line-init
-
-      function transient-prompt() {
-        echo -n "\e[1;32m❯\e[0m "
-      }
-    '';
   };
 
   programs.starship = {
@@ -92,47 +67,9 @@
     settings = {
       add_newline = false;
 
-      # Minimal format: NixOS icon, directory name, git info, prompt
-      format = "$nix_shell$directory$git_branch$git_status$character";
-
-      # Enable transient prompt
       continuation_prompt = "";
+      right_format = "$time";
 
-      # NixOS indicator (only show when in nix-shell)
-      nix_shell = {
-        format = "[ ](bold cyan)";
-        disabled = false;
-      };
-
-      # Directory - show only current directory name
-      directory = {
-        format = "[ $path](bold blue)";
-        truncation_length = 1;
-        truncate_to_repo = false;
-        fish_style_pwd_dir_length = 0;
-      };
-
-      # Git branch with nerd font icon
-      git_branch = {
-        format = "[ $branch](bold magenta)";
-        symbol = " ";
-      };
-
-      # Git status with nerd font icons
-      git_status = {
-        format = "([$all_status$ahead_behind](bold yellow))";
-        staged = " ";
-        modified = " ";
-        untracked = "?";
-        deleted = " ";
-        conflicted = "";
-        ahead = "⇡$count";
-        behind = "⇣$count";
-        diverged = "⇕⇡$ahead_count⇣$behind_count";
-        stashed = "";
-      };
-
-      # Prompt character
       character = {
         success_symbol = "[❯](bold green)";
         error_symbol = "[❯](bold red)";
