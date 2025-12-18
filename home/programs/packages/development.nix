@@ -37,6 +37,9 @@
     gnumake
     pkg-config
 
+    # For tmux copy-paste
+    wl-clipboard
+
     # Version control
     git-lfs
     gh # GitHub CLI
