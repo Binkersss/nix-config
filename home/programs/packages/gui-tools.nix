@@ -22,7 +22,7 @@
       # kdePackages.dolphin
       # kdePackages.qtwayland # Required for Dolphin on Wayland
       ranger
-      ranger
+      xdg-desktop-portal-termfilechooser
       zathura # PDF viewer
       imv # Image viewer (lightweight)
       mpv # Video/audio player

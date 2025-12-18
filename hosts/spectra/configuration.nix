@@ -63,10 +63,13 @@
   services.dbus.enable = true;
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-termfilechooser
+      pkgs.xdg-desktop-portal-gtk # fallback for other portals
+    ];
     config.common = {
       default = "gtk";
-      "org.freedesktop.impl.portal.FileChooser" = "gtk";
+      "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
     };
   };
 
