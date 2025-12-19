@@ -100,13 +100,10 @@
 
       OUTPUT_FILE="$1"
 
-      # Use TERMCMD if set, otherwise default to kitty
-      TERM_CMD="''${TERMCMD:-kitty}"
+      # Run ranger and wait for it to write the chosen file
+      ${pkgs.ranger}/bin/ranger --choosefile="$OUTPUT_FILE"
 
-      # Run ranger in terminal
-      $TERM_CMD -e ${pkgs.ranger}/bin/ranger --choosefile="$OUTPUT_FILE"
-
-      # Check if file was selected
+      # Exit with appropriate code
       if [ -s "$OUTPUT_FILE" ]; then
         exit 0
       else
