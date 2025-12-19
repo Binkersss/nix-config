@@ -151,6 +151,7 @@
     syntaxHighlighting.enable = true;
 
     shellAliases = {
+      ls = "eza";
       ll = "ls -l";
       ff = "fastfetch";
       f = "pay-respects";

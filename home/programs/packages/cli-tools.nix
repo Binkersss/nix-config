@@ -5,7 +5,6 @@
 }: {
   home.packages = with pkgs; [
     fastfetch
-    nnn
     pay-respects
 
     # archives
