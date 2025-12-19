@@ -95,16 +95,22 @@
     text = ''
       #!/usr/bin/env bash
 
-      # Arguments passed by the portal:
-      # $1 = output file path
-      # $2 = starting directory (optional)
-      # $3 = 0 for open, 1 for save
+      # Debug what we receive
+      echo "All args: $@" >> /tmp/ranger-wrapper-debug.log
 
-      OUTPUT="$1"
-      STARTDIR="''${2:-$HOME}"
+      # Arguments from portal (based on logs):
+      # $1 = 1 (some flag)
+      # $2 = 0 (some flag)
+      # $3 = 0 (some flag)
+      # $4 = starting directory
+      # $5 = output file path
+      # $6 = 2 (some flag)
 
-      # Launch terminal with ranger
-      ''${TERMCMD:-ghostty --class=file_chooser} -e ${pkgs.ranger}/bin/ranger --choosefile="$OUTPUT" -- "$STARTDIR"
+      STARTDIR="$4"
+      OUTPUT="$5"
+
+      # Use absolute path to ghostty
+      ${pkgs.ghostty}/bin/ghostty --class=file_chooser -e ${pkgs.ranger}/bin/ranger --choosefile="$OUTPUT" -- "$STARTDIR"
     '';
   };
 
@@ -112,7 +118,7 @@
     force = true;
     text = ''
       [filechooser]
-      cmd=ranger-wrapper.sh
+      cmd=${pkgs.bash}/bin/bash $HOME/.local/bin/ranger-wrapper.sh
       default_dir=$HOME
       open_mode=suggested
       save_mode=suggested
