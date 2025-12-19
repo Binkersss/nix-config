@@ -50,6 +50,6 @@ git commit -m "$COMMIT_MSG"
 
 # ---- rebuild ----
 section "Rebuilding NixOS (spectra)"
-sudo nixos-rebuild switch --flake "$FLAKE_TARGET"
+sudo nixos-rebuild switch --flake "$FLAKE_TARGET" |& nom
 
 section "Done"
