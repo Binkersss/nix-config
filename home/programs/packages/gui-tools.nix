@@ -42,6 +42,7 @@
       # Privacy and Security
       gajim
       protonvpn-gui
+      gophertube
     ]
     ++ [
       # Browser (from flake input)
