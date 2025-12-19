@@ -61,17 +61,6 @@
   };
 
   services.dbus.enable = true;
-  xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-wlr # fallback for other portals
-      pkgs.xdg-desktop-portal-termfilechooser
-    ];
-    config.common = {
-      "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
-    };
-    config.common.default = "termfilechooser";
-  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.binker = {
@@ -88,7 +77,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     neovim
-    xdg-desktop-portal-termfilechooser
     git
     xdg-utils
     mesa

@@ -90,25 +90,21 @@
     ext odt|ods|odp = libreoffice -- "$@"
   '';
 
-  home.sessionVariables.TERMCMD = "ghostty --class=file_chooser";
-
   home.file.".local/bin/ranger-wrapper.sh" = {
     executable = true;
     text = ''
       #!/usr/bin/env bash
-      set -euo pipefail
 
-      OUTPUT_FILE="$1"
+      # Arguments passed by the portal:
+      # $1 = output file path
+      # $2 = starting directory (optional)
+      # $3 = 0 for open, 1 for save
 
-      # Run ranger and wait for it to write the chosen file
-      ${pkgs.ranger}/bin/ranger --choosefile="$OUTPUT_FILE"
+      OUTPUT="$1"
+      STARTDIR="''${2:-$HOME}"
 
-      # Exit with appropriate code
-      if [ -s "$OUTPUT_FILE" ]; then
-        exit 0
-      else
-        exit 1
-      fi
+      # Launch terminal with ranger
+      ''${TERMCMD:-ghostty --class=file_chooser} -e ${pkgs.ranger}/bin/ranger --choosefile="$OUTPUT" -- "$STARTDIR"
     '';
   };
 
@@ -116,8 +112,23 @@
     force = true;
     text = ''
       [filechooser]
-      cmd=$HOME/.local/bin/ranger-wrapper.sh
+      cmd=ranger-wrapper.sh
+      default_dir=$HOME
+      open_mode=suggested
+      save_mode=suggested
     '';
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-termfilechooser
+    ];
+    config.common = {
+      default = "wlr";
+      "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
+    };
   };
 
   xdg.mimeApps = {

@@ -26,7 +26,7 @@
       imv # Image viewer (lightweight)
       mpv # Video/audio player
       file-roller # Archive manager (or: ark, xarchiver)
-      libreoffice # Office documents
+      xdg-desktop-portal-termfilechooser
 
       # Optional but useful:
       ffmpegthumbnailer # Video thumbnails in ranger
