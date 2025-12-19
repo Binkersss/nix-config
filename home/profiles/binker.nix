@@ -152,7 +152,8 @@
 
     shellAliases = {
       ls = "eza";
-      ll = "ls -l";
+      ll = "eza -l";
+      tree = "eza -T";
       ff = "fastfetch";
       f = "pay-respects";
     };
