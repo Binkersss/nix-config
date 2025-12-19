@@ -61,7 +61,7 @@
         {
           command = [
             "noctalia-shell"
-            "protonvpn-gui"
+            "protonvpn-app"
           ];
         }
       ];
