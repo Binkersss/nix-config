@@ -25,7 +25,6 @@
     cowsay
     file
     which
-    tree
     gnused
     gnutar
     gawk
@@ -33,9 +32,5 @@
 
     # nix related
     nix-output-monitor
-
-    # productivity
-    hugo
-    glow
   ];
 }

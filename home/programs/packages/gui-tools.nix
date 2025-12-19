@@ -9,6 +9,8 @@
       # Terminal
       ghostty
 
+      spotify-player
+
       # Launcher
       fuzzel
 
