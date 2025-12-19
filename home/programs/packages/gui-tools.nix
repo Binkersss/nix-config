@@ -39,6 +39,8 @@
       # XWayland support for niri
       xwayland-satellite
 
+      # Privacy and Security
+      gajim
       protonvpn-gui
     ]
     ++ [

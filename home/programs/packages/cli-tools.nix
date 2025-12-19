@@ -29,7 +29,6 @@
     gnutar
     gawk
     gnupg
-    profanity
 
     # nix related
     nix-output-monitor
