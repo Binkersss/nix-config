@@ -64,11 +64,10 @@
   xdg.portal = {
     enable = true;
     extraPortals = [
+      pkgs.xdg-desktop-portal-wlr # fallback for other portals
       pkgs.xdg-desktop-portal-termfilechooser
-      pkgs.xdg-desktop-portal-gtk # fallback for other portals
     ];
     config.common = {
-      default = "gtk";
       "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
     };
   };

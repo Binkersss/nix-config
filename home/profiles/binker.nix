@@ -90,10 +90,35 @@
     ext odt|ods|odp = libreoffice -- "$@"
   '';
 
-  home.file.".config/xdg-desktop-portal-termfilechooser/config".text = ''
-    [filechooser]
-    cmd=ghostty -e ranger --choosefile
-  '';
+  home.sessionVariables.TERMCMD = "ghostty --class=file_chooser";
+
+  home.file.".local/bin/ranger-wrapper.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      set -euo pipefail
+
+      OUTPUT_FILE="$1"
+
+      # Run ranger and wait for it to write the chosen file
+      ${pkgs.ranger}/bin/ranger --choosefile="$OUTPUT_FILE"
+
+      # Exit with appropriate code
+      if [ -s "$OUTPUT_FILE" ]; then
+        exit 0
+      else
+        exit 1
+      fi
+    '';
+  };
+
+  xdg.configFile."xdg-desktop-portal-termfilechooser/config" = {
+    force = true;
+    text = ''
+      [filechooser]
+      cmd=$HOME/.local/bin/ranger-wrapper.sh
+    '';
+  };
 
   xdg.mimeApps = {
     enable = true;
