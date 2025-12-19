@@ -54,7 +54,7 @@
     Type=Application
     Name=spotify-player
     Icon=spotify-player
-    Exec=ghostty -e spotify-player %U
+    Exec=ghostty -e spotify_player %U
     Terminal=false
     Categories=Audio;
     MimeType=inode/directory;
