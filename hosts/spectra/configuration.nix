@@ -70,6 +70,7 @@
     config.common = {
       "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
     };
+    config.common.default = "termfilechooser";
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -87,6 +88,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     neovim
+    xdg-desktop-portal-termfilechooser
     git
     xdg-utils
     mesa
