@@ -38,6 +38,8 @@
 
       # XWayland support for niri
       xwayland-satellite
+
+      protonvpn-gui
     ]
     ++ [
       # Browser (from flake input)
