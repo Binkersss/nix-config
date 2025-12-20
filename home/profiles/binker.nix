@@ -109,48 +109,19 @@
 
       set -e
 
-      if [ "$6" -ge 4 ]; then
-          set -x
-      fi
-
       multiple="$1"
       directory="$2"
       save="$3"
       path="$4"
       out="$5"
 
-      cmd="${pkgs.ranger}/bin/ranger"
-      termcmd="''${TERMCMD:-${pkgs.ghostty}/bin/ghostty --class=file_chooser}"
-
-      if [ "$save" = "1" ]; then
-          # save a file
-          set -- --choosefile="$out" "$path"
-      elif [ "$directory" = "1" ]; then
-          # For directory selection, ranger needs to write current directory on quit
-          # Use --choosedir instead of --choosefile for directory selection
-          set -- --choosedir="$out" "$path"
-      elif [ "$multiple" = "1" ]; then
-          # upload multiple files
-          set -- --choosefile="$out" "$path"
+      if [ "$directory" = "1" ]; then
+          # Directory selection
+          ${pkgs.ghostty}/bin/ghostty --class=file_chooser -e ${pkgs.ranger}/bin/ranger --choosedir="$out" "$path"
       else
-          # upload only 1 file
-          set -- --choosefile="$out" "$path"
+          # File selection
+          ${pkgs.ghostty}/bin/ghostty --class=file_chooser -e ${pkgs.ranger}/bin/ranger --choosefile="$out" "$path"
       fi
-
-      command="$termcmd $cmd"
-      for arg in "$@"; do
-          # escape double quotes
-          escaped=$(printf "%s" "$arg" | sed 's/"/\\"/g')
-          # escape special for ghostty
-          case "$termcmd" in
-              *"ghostty"*)
-                  command="$command \"\\\"$escaped\\\"\"";;
-              *)
-                  command="$command \"$escaped\"";;
-          esac
-      done
-
-      sh -c "$command"
     '';
   };
 
