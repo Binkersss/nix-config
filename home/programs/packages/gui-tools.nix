@@ -34,8 +34,6 @@
       highlight # Syntax highlighting for previews
       mediainfo # Media file info
 
-      ungoogled-chromium
-
       # XWayland support for niri
       xwayland-satellite
 
