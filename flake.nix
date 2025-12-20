@@ -20,6 +20,7 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = {
@@ -29,6 +30,7 @@
     zen-browser,
     noctalia,
     niri,
+    nur,
     ...
   }: {
     nixosConfigurations.lumen-01 = nixpkgs.lib.nixosSystem {
@@ -70,7 +72,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.binker = ./home/profiles/binker.nix;
           home-manager.extraSpecialArgs = {
-            inherit zen-browser noctalia niri;
+            inherit zen-browser noctalia niri nur;
           };
 
           # Optionally, use home-manager.extraSpecialArgs to pass
