@@ -156,10 +156,6 @@
     };
   };
 
-  home.packages = [
-    nur.repos.Ev357.helium
-  ];
-
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
