@@ -107,22 +107,50 @@
     text = ''
       #!/usr/bin/env bash
 
-      # Debug what we receive
-      echo "All args: $@" >> /tmp/ranger-wrapper-debug.log
+      set -e
 
-      # Arguments from portal (based on logs):
-      # $1 = 1 (some flag)
-      # $2 = 0 (some flag)
-      # $3 = 0 (some flag)
-      # $4 = starting directory
-      # $5 = output file path
-      # $6 = 2 (some flag)
+      if [ "$6" -ge 4 ]; then
+          set -x
+      fi
 
-      STARTDIR="$4"
-      OUTPUT="$5"
+      multiple="$1"
+      directory="$2"
+      save="$3"
+      path="$4"
+      out="$5"
 
-      # Use absolute path to ghostty
-      ${pkgs.ghostty}/bin/ghostty --class=file_chooser -e ${pkgs.ranger}/bin/ranger --choosefile="$OUTPUT" -- "$STARTDIR"
+      cmd="${pkgs.ranger}/bin/ranger"
+      termcmd="''${TERMCMD:-${pkgs.ghostty}/bin/ghostty --class=file_chooser}"
+
+      if [ "$save" = "1" ]; then
+          # save a file
+          set -- --choosefile="$out" "$path"
+      elif [ "$directory" = "1" ]; then
+          # For directory selection, ranger needs to write current directory on quit
+          # Use --choosedir instead of --choosefile for directory selection
+          set -- --choosedir="$out" "$path"
+      elif [ "$multiple" = "1" ]; then
+          # upload multiple files
+          set -- --choosefile="$out" "$path"
+      else
+          # upload only 1 file
+          set -- --choosefile="$out" "$path"
+      fi
+
+      command="$termcmd $cmd"
+      for arg in "$@"; do
+          # escape double quotes
+          escaped=$(printf "%s" "$arg" | sed 's/"/\\"/g')
+          # escape special for ghostty
+          case "$termcmd" in
+              *"ghostty"*)
+                  command="$command \"\\\"$escaped\\\"\"";;
+              *)
+                  command="$command \"$escaped\"";;
+          esac
+      done
+
+      sh -c "$command"
     '';
   };
 
@@ -130,7 +158,7 @@
     force = true;
     text = ''
       [filechooser]
-      cmd=${pkgs.bash}/bin/bash $HOME/.local/bin/ranger-wrapper.sh
+      cmd=ranger-wrapper.sh
       default_dir=$HOME
       open_mode=suggested
       save_mode=suggested
