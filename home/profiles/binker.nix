@@ -166,33 +166,38 @@
     };
     history.size = 10000;
 
-    initExtra = ''
-      # Starship transient prompt
-      function set_win_title(){
-        echo -ne "\033]0; $(basename "$PWD") \007"
-      }
-      starship_precmd_user_func="set_win_title"
+    initContent = ''
+      # Auto-start tmux (but prevent nesting)
+       if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+           tmux attach -t default || tmux new -s default
+       fi
 
-      # Enable transient prompt
-      function zle-line-init() {
-        emulate -L zsh
-        [[ $CONTEXT == start ]] || return 0
+       # Starship transient prompt
+       function set_win_title(){
+         echo -ne "\033]0; $(basename "$PWD") \007"
+       }
+       starship_precmd_user_func="set_win_title"
 
-        while true; do
-          zle .reset-prompt
-          zle -R
-          break
-        done
-      }
-      zle -N zle-line-init
+       # Enable transient prompt
+       function zle-line-init() {
+         emulate -L zsh
+         [[ $CONTEXT == start ]] || return 0
 
-      function transient-prompt() {
-        echo -n "\e[1;32m❯\e[0m "
-      }
+         while true; do
+           zle .reset-prompt
+           zle -R
+           break
+         done
+       }
+       zle -N zle-line-init
 
-      # Word navigation with Ctrl+Arrow keys
-      bindkey "^[[1;5C" forward-word      # Ctrl+Right
-      bindkey "^[[1;5D" backward-word     # Ctrl+Left
+       function transient-prompt() {
+         echo -n "\e[1;32m❯\e[0m "
+       }
+
+       # Word navigation with Ctrl+Arrow keys
+       bindkey "^[[1;5C" forward-word      # Ctrl+Right
+       bindkey "^[[1;5D" backward-word     # Ctrl+Left
     '';
   };
 
