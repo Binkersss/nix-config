@@ -153,7 +153,7 @@
     ];
     config.common = {
       pkgs.xdg-desktop-portal-termfilechooser
-    ];
+    };
     config.common = {
       default = ["gtk" "wlr"];
       "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
