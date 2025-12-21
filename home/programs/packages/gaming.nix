@@ -7,5 +7,6 @@
     mangohud
     protonup-qt
     heroic
+    bottles
   ];
 }
