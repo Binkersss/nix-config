@@ -42,6 +42,8 @@
       protonvpn-gui
       freetube
 
+      thunderbird
+
       # Browser
       pkgs.nur.repos.Ev357.helium
       librewolf
