@@ -82,9 +82,23 @@
     mesa
   ];
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-termfilechooser
+    ];
+    config.common = {
+      default = ["gtk" "wlr"];
+      "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
+    };
+  };
+
   environment.pathsToLink = [
     "/share/applications"
     "/share/xdg-desktop-portal"
+    "/share/xdg-desktop-portal/portals"
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
