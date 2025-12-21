@@ -57,7 +57,7 @@
         };
       };
 
-      spawn-at-startup = [
+      spawn-at-startup-sh = [
         {
           command = [
             "noctalia-shell"
@@ -133,7 +133,7 @@
 
         "Mod+T".action.spawn = "ghostty";
         "Mod+D".action.spawn = "fuzzel";
-        "Mod+B".action.spawn = "zen";
+        "Mod+B".action.spawn = "helium";
         "Super+Alt+L".action.spawn = "swaylock";
 
         "Super+Alt+S" = {
