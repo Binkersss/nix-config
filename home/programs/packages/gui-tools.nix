@@ -2,7 +2,6 @@
   config,
   pkgs,
   zen-browser,
-  inputs,
   ...
 }: {
   home.packages = with pkgs;
@@ -43,7 +42,7 @@
       protonvpn-gui
       freetube
 
-      inputs.nur.repos.Ev357.helium
+      pkgs.nur.repos.Ev357.helium
     ]
     ++ [
       # Browser (from flake input)

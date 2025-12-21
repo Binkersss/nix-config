@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nur.url = "github:nix-community/NUR";
 
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
@@ -20,7 +21,6 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nur.url = "github:nix-community/NUR";
   };
 
   outputs = {
@@ -64,6 +64,7 @@
 
         ./hosts/common/bases/desktop-base.nix
         ./hosts/common/users/binker.nix
+        {nixpkgs.overlays = [nur.overlay];}
 
         home-manager.nixosModules.home-manager
         {
@@ -72,7 +73,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.binker = ./home/profiles/binker.nix;
           home-manager.extraSpecialArgs = {
-            inherit zen-browser noctalia niri nur;
+            inherit zen-browser noctalia niri;
           };
 
           # Optionally, use home-manager.extraSpecialArgs to pass
