@@ -328,7 +328,7 @@ require('lazy').setup({
     },
   },
   {
-  "sphamba/smear-cursor.nvim",
+  'sphamba/smear-cursor.nvim',
 
   opts = {
     -- Smear cursor when switching buffers or windows.
