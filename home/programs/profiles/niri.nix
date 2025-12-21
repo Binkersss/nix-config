@@ -60,6 +60,7 @@
       spawn-at-startup = [
         {sh = "noctalia-shell";}
         {sh = "protonvpn-app";}
+        {sh = "thunderbird";}
       ];
 
       layout = {
