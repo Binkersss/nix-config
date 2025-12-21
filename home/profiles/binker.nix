@@ -189,6 +189,10 @@
       function transient-prompt() {
         echo -n "\e[1;32m❯\e[0m "
       }
+
+      # Word navigation with Ctrl+Arrow keys
+      bindkey "^[[1;5C" forward-word      # Ctrl+Right
+      bindkey "^[[1;5D" backward-word     # Ctrl+Left
     '';
   };
 
