@@ -58,12 +58,8 @@
       };
 
       spawn-at-startup = [
-        {
-          command = [
-            "noctalia-shell"
-            "protonvpn-app"
-          ];
-        }
+        {sh = "noctalia-shell";}
+        {sh = "protonvpn-app";}
       ];
 
       layout = {
