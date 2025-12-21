@@ -133,24 +133,24 @@
     '';
   };
 
-  xdg.configFile."xdg-desktop-portal-termfilechooser/config" = {
-    force = true;
-    text = ''
-      [filechooser]
-      cmd=ranger-wrapper.sh
-      default_dir=$HOME
-      open_mode=suggested
-      save_mode=suggested
-    '';
-  };
+  # xdg.configFile."xdg-desktop-portal-termfilechooser/config" = {
+  #   force = true;
+  #   text = ''
+  #     [filechooser]
+  #     cmd=ranger-wrapper.sh
+  #     default_dir=$HOME
+  #     open_mode=suggested
+  #     save_mode=suggested
+  #   '';
+  # };
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "inode/directory" = "ranger.desktop";
-      "x-scheme-handler/file" = "ranger.desktop";
-    };
-  };
+  # xdg.mimeApps = {
+  #   enable = true;
+  #   defaultApplications = {
+  #     "inode/directory" = "ranger.desktop";
+  #     "x-scheme-handler/file" = "ranger.desktop";
+  #   };
+  # };
 
   programs.zsh = {
     enable = true;
