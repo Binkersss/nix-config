@@ -29,6 +29,7 @@
     gnutar
     gawk
     gnupg
+    hugo
 
     # nix related
     nix-output-monitor
