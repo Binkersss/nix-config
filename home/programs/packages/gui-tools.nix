@@ -42,7 +42,9 @@
       protonvpn-gui
       freetube
 
+      # Browser
       pkgs.nur.repos.Ev357.helium
+      librewolf
     ]
     ++ [
       # Browser (from flake input)
