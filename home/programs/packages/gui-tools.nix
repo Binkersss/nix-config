@@ -29,7 +29,7 @@
       mpv # Video/audio player
       file-roller # Archive manager (or: ark, xarchiver)
       # xdg-desktop-portal-termfilechooser
-      xdg-desktop-portal-kde
+      kdePackages.xdg-desktop-portal-kde
       ffmpegthumbnailer # Video thumbnails in ranger
       poppler-utils # PDF thumbnails/preview
       highlight # Syntax highlighting for previews
