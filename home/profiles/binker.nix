@@ -107,7 +107,15 @@
     text = ''
       #!/usr/bin/env bash
 
-      set -e
+      # Log everything for debugging
+      echo "=== WRAPPER CALLED ===" >> /tmp/ranger-wrapper-debug.log
+      echo "Args: $@" >> /tmp/ranger-wrapper-debug.log
+      echo "Arg1 (multiple): $1" >> /tmp/ranger-wrapper-debug.log
+      echo "Arg2 (directory): $2" >> /tmp/ranger-wrapper-debug.log
+      echo "Arg3 (save): $3" >> /tmp/ranger-wrapper-debug.log
+      echo "Arg4 (path): $4" >> /tmp/ranger-wrapper-debug.log
+      echo "Arg5 (out): $5" >> /tmp/ranger-wrapper-debug.log
+      echo "Arg6: $6" >> /tmp/ranger-wrapper-debug.log
 
       multiple="$1"
       directory="$2"
@@ -116,12 +124,16 @@
       out="$5"
 
       if [ "$directory" = "1" ]; then
-          # Directory selection
-          ${pkgs.ghostty}/bin/ghostty --class=file_chooser -e ${pkgs.ranger}/bin/ranger --choosedir="$out" "$path"
+          echo "Running: ghostty with ranger --choosedir" >> /tmp/ranger-wrapper-debug.log
+          ${pkgs.ghostty}/bin/ghostty --class=file_chooser -e ${pkgs.ranger}/bin/ranger --choosedir="$out" "$path" 2>> /tmp/ranger-wrapper-debug.log
       else
-          # File selection
-          ${pkgs.ghostty}/bin/ghostty --class=file_chooser -e ${pkgs.ranger}/bin/ranger --choosefile="$out" "$path"
+          echo "Running: ghostty with ranger --choosefile" >> /tmp/ranger-wrapper-debug.log
+          ${pkgs.ghostty}/bin/ghostty --class=file_chooser -e ${pkgs.ranger}/bin/ranger --choosefile="$out" "$path" 2>> /tmp/ranger-wrapper-debug.log
       fi
+
+      echo "Output file contents:" >> /tmp/ranger-wrapper-debug.log
+      cat "$out" >> /tmp/ranger-wrapper-debug.log 2>&1 || echo "Failed to read output" >> /tmp/ranger-wrapper-debug.log
+      echo "===================" >> /tmp/ranger-wrapper-debug.log
     '';
   };
 
