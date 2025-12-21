@@ -64,7 +64,7 @@
 
         ./hosts/common/bases/desktop-base.nix
         ./hosts/common/users/binker.nix
-        {nixpkgs.overlays = [nur.overlay];}
+        {nixpkgs.overlays = [nur.overlays.default];}
 
         home-manager.nixosModules.home-manager
         {
