@@ -14,12 +14,27 @@
     name = "Bibata-Modern-Classic";
     size = 24;
   };
-
   gtk = {
     enable = true;
+
+    theme = {
+      name = "Adwaita-dark"; # or create custom
+      package = pkgs.gnome-themes-extra;
+    };
+
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+
     cursorTheme = {
-      package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Classic";
+      package = pkgs.bibata-cursors;
+    };
+
+    font = {
+      name = "Inter";
+      size = 11;
     };
 
     gtk3.extraConfig = {
