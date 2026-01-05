@@ -78,6 +78,7 @@
 
           # Optionally, use home-manager.extraSpecialArgs to pass
           # arguments to home.nix
+          # This is just for testing out the wakatime plugin.
         }
       ];
     };
