@@ -49,17 +49,6 @@
     name = "ghostty-config";
   };
 
-  home.file.".local/share/applications/spotify-player.desktop".text = ''
-    [Desktop Entry]
-    Type=Application
-    Name=spotify-player
-    Icon=spotify-player
-    Exec=ghostty -e spotify_player %U
-    Terminal=false
-    Categories=Audio;
-    MimeType=inode/directory;
-  '';
-
   home.file.".local/share/applications/ranger.desktop".text = ''
     [Desktop Entry]
     Type=Application

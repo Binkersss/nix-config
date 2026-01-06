@@ -32,6 +32,7 @@
       poppler-utils # PDF thumbnails/preview
       highlight # Syntax highlighting for previews
       mediainfo # Media file info
+      libreoffice
 
       # XWayland support for niri
       xwayland-satellite
