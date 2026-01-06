@@ -28,8 +28,6 @@
     gnused
     gnutar
     gawk
-    gnupg
-    pinentry-curses
     hugo
 
     # nix related

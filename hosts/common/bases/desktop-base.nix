@@ -51,6 +51,8 @@
     neovim
     git
     git-crypt
+    gnupg
+    pinentry-curses
     wget
     curl
     htop
@@ -61,6 +63,14 @@
     i3 # for x11 troubleshooting
     dmenu
   ];
+
+  services.pcscd.enable = true;
+
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryFlavor = "curses";
+    enableSSHSupport = true;
+  };
 
   fonts.fontconfig.enable = true;
 
