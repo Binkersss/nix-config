@@ -34,13 +34,6 @@
     };
   };
 
-  services.pcscd.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryFlavor = "curses";
-    enableSSHSupport = true;
-  };
-
   home.file.".config/nvim".source = builtins.path {
     path = ../../dotfiles/nvim;
     name = "nvim-config";
