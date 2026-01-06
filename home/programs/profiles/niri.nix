@@ -70,6 +70,12 @@
         "eDP-1" = {
           scale = 1.5;
         };
+        "DP-2" = {
+          mode = {
+            height = 2160;
+            width = 3840;
+          };
+        };
       };
 
       spawn-at-startup = [
