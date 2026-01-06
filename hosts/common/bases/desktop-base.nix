@@ -50,6 +50,7 @@
   environment.systemPackages = with pkgs; [
     neovim
     git
+    git-crypt
     wget
     curl
     htop
