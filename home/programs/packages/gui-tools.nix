@@ -9,9 +9,6 @@
       # Terminal
       ghostty
 
-      spotifyd
-      spotify-tui
-
       # Launcher
       fuzzel
 
