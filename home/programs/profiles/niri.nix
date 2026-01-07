@@ -85,6 +85,7 @@
       ];
 
       layout = {
+        background-color = "transparent";
         gaps = 16;
         center-focused-column = "never";
         preset-column-widths = [
@@ -145,6 +146,23 @@
         #   opacity = 0.9;
         # }
       ];
+
+      layer-rules = [
+        {
+          # This is for swaybg; change for other wallpaper tools.
+          # Find the right namespace by running niri msg layers.
+          matches = [
+            {namespace = "^wallpaper$";}
+          ];
+          place-within-backdrop = true;
+        }
+      ];
+
+      overview = {
+        workspace-shadow = {
+          off = true;
+        };
+      };
 
       binds = {
         "Mod+Shift+Slash".action.show-hotkey-overlay = {};
