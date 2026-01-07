@@ -114,36 +114,36 @@
       };
 
       window-rules = [
-        {
-          matches = [
-            {is-focused = false;}
-          ];
-          opacity = 0.85;
-        }
-        {
-          matches = [
-            {is-focused = true;}
-          ];
-          opacity = 1.0;
-        }
-        {
-          matches = [
-            {
-              app-id = "ghostty";
-              is-focused = false;
-            }
-          ];
-          opacity = 0.8;
-        }
-        {
-          matches = [
-            {
-              app-id = "ghostty";
-              is-focused = true;
-            }
-          ];
-          opacity = 0.9;
-        }
+        # {
+        #   matches = [
+        #     {is-focused = false;}
+        #   ];
+        #   opacity = 0.85;
+        # }
+        # {
+        #   matches = [
+        #     {is-focused = true;}
+        #   ];
+        #   opacity = 1.0;
+        # }
+        # {
+        #   matches = [
+        #     {
+        #       app-id = "ghostty";
+        #       is-focused = false;
+        #     }
+        #   ];
+        #   opacity = 0.8;
+        # }
+        # {
+        #   matches = [
+        #     {
+        #       app-id = "ghostty";
+        #       is-focused = true;
+        #     }
+        #   ];
+        #   opacity = 0.9;
+        # }
       ];
 
       binds = {
