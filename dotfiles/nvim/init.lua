@@ -836,7 +836,6 @@ require('lazy').setup({
         lua = { 'stylua' },
         nix = { 'alejandra' },
         markdown = { 'markdownlint', 'prettier' },
-        -- markdown = { 'markdownlint', 'prettier --prose-wrap always' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
