@@ -108,7 +108,14 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.expandtab = true
   end,
 })
-
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'md' },
+  callback = function()
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.tabstop = 2
+    vim.opt_local.expandtab = true
+  end,
+})
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'go' },
   callback = function()
@@ -987,7 +994,7 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { }},
+  { 'folke/todo-comments.nvim', dependencies = { 'nvim-lua/plenary.nvim' }, opts = {} },
   { 'wakatime/vim-wakatime', lazy = false },
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
