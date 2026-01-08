@@ -35,6 +35,8 @@
   # XWayland support
   programs.xwayland.enable = true;
 
+  programs.wireshark.enable = true;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -62,6 +64,8 @@
     xdg-utils
     i3 # for x11 troubleshooting
     dmenu
+
+    wireshark
   ];
 
   services.pcscd.enable = true;
