@@ -966,7 +966,7 @@ require('lazy').setup({
       latex = {
         enabled = true,
         render_modes = false,
-        converter = { 'utftex', 'latex2text' },
+        converter = { 'latex2text' },
         highlight = 'RenderMarkdownMath',
         position = 'center',
         top_pad = 0,
