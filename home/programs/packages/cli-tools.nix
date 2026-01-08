@@ -20,7 +20,7 @@
     yq-go
     eza
     fzf
-    pylatexenc
+    python313Packages.pylatexenc
 
     # misc
     cowsay
