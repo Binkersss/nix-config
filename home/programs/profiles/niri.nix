@@ -160,7 +160,7 @@
 
       overview = {
         workspace-shadow = {
-          off = true;
+          enable = false;
         };
       };
 
