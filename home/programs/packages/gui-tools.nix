@@ -28,6 +28,7 @@
       file-roller # Archive manager (or: ark, xarchiver)
       # xdg-desktop-portal-termfilechooser
       kdePackages.xdg-desktop-portal-kde
+      kdePackages.okular
       ffmpegthumbnailer # Video thumbnails in ranger
       poppler-utils # PDF thumbnails/preview
       highlight # Syntax highlighting for previews
