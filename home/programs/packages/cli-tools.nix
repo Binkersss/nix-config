@@ -20,6 +20,7 @@
     yq-go
     eza
     fzf
+    pylatexenc
 
     # misc
     cowsay
