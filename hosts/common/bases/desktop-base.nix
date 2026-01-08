@@ -36,6 +36,7 @@
   programs.xwayland.enable = true;
 
   programs.wireshark.enable = true;
+  programs.wireshark.package = pkgs.wireshark;
 
   # Configure keymap in X11
   services.xserver.xkb = {
