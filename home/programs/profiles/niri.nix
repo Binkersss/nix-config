@@ -85,7 +85,7 @@
       ];
 
       layout = {
-        background-color = "transparent";
+        background-color = "#00000000";
         gaps = 16;
         center-focused-column = "never";
         preset-column-widths = [
