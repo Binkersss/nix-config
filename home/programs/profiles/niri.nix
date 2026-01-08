@@ -153,6 +153,7 @@
           # Find the right namespace by running niri msg layers.
           matches = [
             {namespace = "^wallpaper$";}
+            {namespace = "^background$";}
           ];
           place-within-backdrop = true;
         }
