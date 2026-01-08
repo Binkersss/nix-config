@@ -34,6 +34,15 @@
     };
   };
 
+  programs.neovim = {
+    enable = true;
+    extraPackages = with pkgs; [
+      # Treesitter needs a C compiler to build parsers
+      gcc
+      tree-sitter
+    ];
+  };
+
   home.file.".config/nvim".source = builtins.path {
     path = ../../dotfiles/nvim;
     name = "nvim-config";
