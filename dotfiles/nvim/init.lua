@@ -1047,7 +1047,8 @@ require('lazy').setup({
       local parser_install_dir = vim.fn.stdpath 'cache' .. '/treesitter'
       vim.fn.mkdir(parser_install_dir, 'p')
 
-      require('nvim-treesitter.configs').setup {
+      require 'nvim-treesitter.config'
+      setup {
         parser_install_dir = parser_install_dir,
         ensure_installed = { 'bash', 'c', 'diff', 'latex', 'yaml', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
         auto_install = true,
