@@ -22,6 +22,7 @@
     zls
     marksman
     markdownlint-cli
+    treesitter
 
     # Formatters
     stylua
