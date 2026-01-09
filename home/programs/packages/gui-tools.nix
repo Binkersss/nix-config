@@ -34,6 +34,7 @@
       highlight # Syntax highlighting for previews
       mediainfo # Media file info
       libreoffice
+      anki-bin
 
       # XWayland support for niri
       xwayland-satellite
