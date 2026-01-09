@@ -1042,22 +1042,37 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'latex', 'yaml', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-      auto_install = true,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
-    config = function(_, opts)
+    init = function()
+      -- Set parser install directory BEFORE treesitter loads
       local parser_install_dir = vim.fn.stdpath 'cache' .. '/treesitter'
       vim.fn.mkdir(parser_install_dir, 'p')
-      opts.parser_install_dir = parser_install_dir
-      vim.opt.runtimepath:append(parser_install_dir)
+      vim.opt.runtimepath:prepend(parser_install_dir)
+    end,
+    config = function()
+      local parser_install_dir = vim.fn.stdpath 'cache' .. '/treesitter'
 
-      require('nvim-treesitter.configs').setup(opts)
+      -- Use pcall to safely check if module exists
+      local ok, ts_config = pcall(require, 'nvim-treesitter.configs')
+      if not ok then
+        vim.notify('nvim-treesitter.configs not found, trying alternatives', vim.log.levels.WARN)
+        -- Try the main module instead
+        ok, ts_config = pcall(require, 'nvim-treesitter')
+      end
+
+      if ok and ts_config and ts_config.setup then
+        ts_config.setup {
+          parser_install_dir = parser_install_dir,
+          ensure_installed = { 'bash', 'c', 'diff', 'latex', 'yaml', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+          auto_install = true,
+          highlight = {
+            enable = true,
+            additional_vim_regex_highlighting = { 'ruby' },
+          },
+          indent = { enable = true, disable = { 'ruby' } },
+        }
+      else
+        vim.notify('Could not configure nvim-treesitter', vim.log.levels.ERROR)
+      end
     end,
   },
   --{ -- Highlight, edit, and navigate code
