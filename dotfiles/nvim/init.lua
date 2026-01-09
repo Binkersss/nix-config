@@ -1043,17 +1043,40 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     config = function()
-      require('nvim-treesitter.config').setup {
-        -- ensure_installed = { 'bash', 'c', 'diff', 'latex', 'yaml', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-        auto_install = false,
+      -- Set writable directory for parsers
+      local parser_install_dir = vim.fn.stdpath 'cache' .. '/treesitter'
+      vim.fn.mkdir(parser_install_dir, 'p')
+
+      require('nvim-treesitter.configs').setup {
+        parser_install_dir = parser_install_dir,
+        ensure_installed = { 'bash', 'c', 'diff', 'latex', 'yaml', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+        auto_install = true,
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = { 'ruby' },
         },
         indent = { enable = true, disable = { 'ruby' } },
       }
+
+      -- Add to runtimepath
+      vim.opt.runtimepath:append(parser_install_dir)
     end,
   },
+  --{ -- Highlight, edit, and navigate code
+  --  'nvim-treesitter/nvim-treesitter',
+  --  build = ':TSUpdate',
+  --  config = function()
+  --    require('nvim-treesitter.config').setup {
+  --      -- ensure_installed = { 'bash', 'c', 'diff', 'latex', 'yaml', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+  --      auto_install = false,
+  --      highlight = {
+  --        enable = true,
+  --        additional_vim_regex_highlighting = { 'ruby' },
+  --      },
+  --      indent = { enable = true, disable = { 'ruby' } },
+  --    }
+  --  end,
+  --},
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.

@@ -34,27 +34,6 @@
     };
   };
 
-  programs.neovim = {
-    enable = true;
-
-    plugins = with pkgs.vimPlugins; [
-      (nvim-treesitter.withPlugins (p: [
-        p.bash
-        p.c
-        p.diff
-        p.latex
-        p.yaml
-        p.html
-        p.lua
-        p.markdown
-        p.markdown_inline
-        p.query
-        p.vim
-        p.vimdoc
-      ]))
-    ];
-  };
-
   home.file.".config/nvim".source = builtins.path {
     path = ../../dotfiles/nvim;
     name = "nvim-config";
