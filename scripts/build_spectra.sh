@@ -52,4 +52,26 @@ git commit -m "$COMMIT_MSG"
 section "Rebuilding NixOS (spectra)"
 sudo nixos-rebuild switch --flake "$FLAKE_TARGET" |& nom
 
+# --- validating nvim config ---
+
+# Capture output and errors
+output=$(nvim --headless \
+  -c "lua vim.opt.termguicolors = false" \
+  -c "lua print('Config loaded successfully')" \
+  -c "checkhealth" \
+  -c "quit" 2>&1)
+
+exit_code=$?
+
+echo "$output"
+
+if [ $exit_code -eq 0 ]; then
+    echo ""
+    echo "✓ Neovim config validation passed"
+    exit 0
+else
+    echo ""
+    echo "✗ Neovim config validation failed"
+    exit 1
+fi
 section "Done"
