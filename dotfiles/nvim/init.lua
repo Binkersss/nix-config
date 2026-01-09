@@ -1042,25 +1042,22 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    config = function()
-      -- Set writable directory for parsers
+    opts = {
+      ensure_installed = { 'bash', 'c', 'diff', 'latex', 'yaml', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      auto_install = true,
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = { 'ruby' },
+      },
+      indent = { enable = true, disable = { 'ruby' } },
+    },
+    config = function(_, opts)
       local parser_install_dir = vim.fn.stdpath 'cache' .. '/treesitter'
       vim.fn.mkdir(parser_install_dir, 'p')
-
-      local configs = require 'nvim-treesitter.configs'
-      configs.setup {
-        parser_install_dir = parser_install_dir,
-        ensure_installed = { 'bash', 'c', 'diff', 'latex', 'yaml', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-        auto_install = true,
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = { 'ruby' },
-        },
-        indent = { enable = true, disable = { 'ruby' } },
-      }
-
-      -- Add to runtimepath
+      opts.parser_install_dir = parser_install_dir
       vim.opt.runtimepath:append(parser_install_dir)
+
+      require('nvim-treesitter.configs').setup(opts)
     end,
   },
   --{ -- Highlight, edit, and navigate code
