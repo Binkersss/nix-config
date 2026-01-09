@@ -36,10 +36,22 @@
 
   programs.neovim = {
     enable = true;
-    extraPackages = with pkgs; [
-      # Treesitter needs a C compiler to build parsers
-      gcc
-      tree-sitter
+
+    plugins = with pkgs.vimPlugins; [
+      (nvim-treesitter.withPlugins (p: [
+        p.bash
+        p.c
+        p.diff
+        p.latex
+        p.yaml
+        p.html
+        p.lua
+        p.markdown
+        p.markdown_inline
+        p.query
+        p.vim
+        p.vimdoc
+      ]))
     ];
   };
 

@@ -1044,8 +1044,8 @@ require('lazy').setup({
     build = ':TSUpdate',
     config = function()
       require('nvim-treesitter.config').setup {
-        ensure_installed = { 'bash', 'c', 'diff', 'latex', 'yaml', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-        auto_install = true,
+        -- ensure_installed = { 'bash', 'c', 'diff', 'latex', 'yaml', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+        auto_install = false,
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = { 'ruby' },
