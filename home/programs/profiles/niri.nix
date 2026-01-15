@@ -7,45 +7,6 @@
     niri.homeModules.niri
   ];
 
-  home.pointerCursor = {
-    gtk.enable = true;
-    x11.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 24;
-  };
-  gtk = {
-    enable = true;
-
-    theme = {
-      name = "Adwaita-dark"; # or create custom
-      package = pkgs.gnome-themes-extra;
-    };
-
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-
-    cursorTheme = {
-      name = "Bibata-Modern-Classic";
-      package = pkgs.bibata-cursors;
-    };
-
-    font = {
-      name = "Inter";
-      size = 11;
-    };
-
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
-
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
-  };
-
   programs.niri = {
     enable = true;
 
