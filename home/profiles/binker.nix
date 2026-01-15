@@ -133,6 +133,7 @@
 
     # PDFs
     ext pdf = zathura -- "$@"
+    ext epub = zathura -- "$@"
 
     # Images
     mime ^image = imv -- "$@"
