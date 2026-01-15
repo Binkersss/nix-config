@@ -35,6 +35,7 @@
       mediainfo # Media file info
       libreoffice
       anki-bin
+      foliate
 
       # XWayland support for niri
       xwayland-satellite
