@@ -41,6 +41,19 @@
     name = "Bibata-Modern-Classic";
     size = 24;
   };
+
+  # In your home-manager config
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      gtk-theme = "adw-gtk3-dark";
+    };
+  };
+
+  home.sessionVariables = {
+    GTK_THEME = "adw-gtk3-dark:dark";
+  };
+
   gtk = {
     enable = true;
 
