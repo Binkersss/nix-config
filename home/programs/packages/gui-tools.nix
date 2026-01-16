@@ -21,6 +21,7 @@
 
       kdePackages.dolphin
       kdePackages.qtwayland # Required for Dolphin on Wayland
+      kdePackages.ghostwriter
       ranger
       zathura # PDF viewer
       imv # Image viewer (lightweight)
