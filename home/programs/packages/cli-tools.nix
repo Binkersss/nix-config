@@ -30,6 +30,8 @@
     gnutar
     gawk
     hugo
+    pandoc
+    texliveTeTeX
 
     # nix related
     nix-output-monitor
