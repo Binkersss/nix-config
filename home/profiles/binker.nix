@@ -19,6 +19,11 @@
     extraConfig = ''
       AddKeysToAgent yes
       IdentityFile ~/.ssh/id_ed25519_github
+
+      Host codeberg.org
+        HostName codeberg.org
+        User git
+        IdentityFile ~/.ssh/id_ed25519_github
     '';
   };
   services.ssh-agent.enable = true;
