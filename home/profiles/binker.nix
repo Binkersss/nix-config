@@ -34,7 +34,10 @@
       user = {
         name = "Nathaniel Chappelle";
         email = "nathaniel@chappelle.dev";
+        signingkey = "37AF9835E4CDAC40";
       };
+      commit.gpgsign = true;
+      tag.gpgsign = true;
       init.defaultBranch = "main";
     };
   };
@@ -223,6 +226,8 @@
     history.size = 10000;
 
     initContent = ''
+      export GPG_TTY=\$(tty)
+
       # Auto-start tmux (but prevent nesting)
        if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
            tmux attach -t default || tmux new -s default
