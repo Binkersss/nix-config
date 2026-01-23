@@ -49,6 +49,7 @@
       # Browser
       pkgs.nur.repos.Ev357.helium
       librewolf
+      tor-browser
     ]
     ++ [
       # Browser (from flake input)
