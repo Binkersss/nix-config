@@ -32,7 +32,7 @@
     enable = true;
     settings = {
       user = {
-        name = "Nathaniel Chappelle";
+        name = "binkd";
         email = "nathaniel@chappelle.dev";
         signingkey = "37AF9835E4CDAC40";
       };
