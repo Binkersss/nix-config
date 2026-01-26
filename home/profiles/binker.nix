@@ -228,6 +228,8 @@
     initContent = ''
       export GPG_TTY=\$(tty)
 
+      export BULLSHIT_FILE=/home/binker/src/bullshit/bullshit.txt
+
       # Auto-start tmux (but prevent nesting)
        if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
            tmux attach -t default || tmux new -s default
