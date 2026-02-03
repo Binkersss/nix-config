@@ -65,6 +65,7 @@
 
   services.syncthing = {
     enable = true;
+    user = "binker";
     openDefaultPorts = true;
     settings.gui = {
       user = "binkd";
