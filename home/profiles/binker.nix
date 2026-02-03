@@ -28,6 +28,14 @@
   };
   services.ssh-agent.enable = true;
 
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+    settings.gui = {
+      user = "binkd";
+      password = "bigboobs";
+    };
+  };
   programs.git = {
     enable = true;
     settings = {
