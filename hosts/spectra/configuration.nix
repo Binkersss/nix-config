@@ -63,6 +63,15 @@
 
   services.dbus.enable = true;
 
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+    settings.gui = {
+      user = "binkd";
+      password = "bigboobs";
+    };
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.binker = {
     isNormalUser = true;
