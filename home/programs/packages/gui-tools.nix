@@ -16,6 +16,8 @@
       zotero
       sqlite # for zotero nvim plugin
 
+      qutebrowser
+
       # Locker
       swaylock
 

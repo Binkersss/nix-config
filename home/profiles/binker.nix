@@ -108,6 +108,11 @@
     name = "nvim-config";
   };
 
+  home.file.".config/qutebrowser/config.py".source = builtins.path {
+    path = ../../dotfiles/qutebrowser/config.py;
+    name = "qutebrowser-config";
+  };
+
   home.file.".config/tmux".source = builtins.path {
     path = ../../dotfiles/tmux;
     name = "tmux-config";
