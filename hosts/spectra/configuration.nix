@@ -12,8 +12,12 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.version = 2;
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.efiInstallAsRemovable = true; # optional, safer for dual boot
+  boot.loader.grub.device = "nodev"; # UEFI-only systems
+  boot.loader.grub.useOSProber = true; # detect other OSes
 
   networking.hostName = "spectra"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -81,6 +85,8 @@
     git
     xdg-utils
     mesa
+    grub
+    os-prober
   ];
 
   # xdg.portal = {
