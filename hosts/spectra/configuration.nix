@@ -85,6 +85,7 @@
     git
     xdg-utils
     mesa
+    efibootmgr
     os-prober
   ];
 
