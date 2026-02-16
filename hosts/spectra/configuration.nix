@@ -85,7 +85,6 @@
     git
     xdg-utils
     mesa
-    grub
     os-prober
   ];
 
